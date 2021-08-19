@@ -13,6 +13,14 @@ interface MainApi {
     fun getHomeBanner(): Observable<HttpResult<MutableList<Banner>>>
 
     /**
+     * 账户明细
+     */
+    @GET("/v2/records.php")
+    fun getRecords(@Header("token") token :String, @Query("page") page: Int, @Query("pagesize") pagesize : Int, @Query("cfrom") cfrom : String
+                   , @Query("channel") channel : String, @Query("pkg") pkg:String, @Query("version") version:String)
+            : Observable<HttpResult<Any>>
+
+    /**
      * 订阅
      */
     @GET("/sprapi/userfocus/getActiveList")

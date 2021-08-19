@@ -1,6 +1,5 @@
 package com.xktt.renovation.ui.main.fragment
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.ImageView
@@ -38,17 +37,17 @@ class MianFragment : BaseFragment() {
         tabLayout.setupWithViewPager(viewPager)
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                Log.d("TabLayout","选中onTabSelected")
+//                Log.d("TabLayout","选中onTabSelected")
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                Log.d("TabLayout","选中onTabUnselected")
+//                Log.d("TabLayout","选中onTabUnselected")
                 if (fragmentInfos[0].text == tab?.text.toString())
                 tab?.customView?.findViewById<ImageView>(R.id.tab_image)?.isActivated = false
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                Log.d("TabLayout","选中onTabReselected")
+//                Log.d("TabLayout","选中onTabReselected")
             }
 
         })

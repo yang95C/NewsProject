@@ -6,10 +6,11 @@ import android.content.Context
 import android.os.Bundle
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
-import com.xktt.renovation.baselibs.config.AppConfig
-import com.xktt.renovation.baselibs.utils.NLog
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
+import com.xktt.renovation.baselibs.config.AppConfig
+import com.xktt.renovation.baselibs.utils.NLog
+import com.xktt.renovation.baselibs.utils.ToastUtils
 
 /**
  * @author admin
@@ -39,6 +40,7 @@ class App : Application() {
     private fun initApp() {
         AppConfig.init(this)
         AppConfig.openDebug()
+        ToastUtils.init(this)
     }
 
     private fun initLeakCanary() {

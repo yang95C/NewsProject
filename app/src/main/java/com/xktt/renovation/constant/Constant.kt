@@ -9,6 +9,6 @@ package com.xktt.renovation.constant
 object Constant{
 
 //    const val BASE_URL = "https://www.wanandroid.com"
-    const val BASE_URL = "http://api.feishulive.com"
+    const val BASE_URL = "http://testapi.feishulive.com"
 
 }
