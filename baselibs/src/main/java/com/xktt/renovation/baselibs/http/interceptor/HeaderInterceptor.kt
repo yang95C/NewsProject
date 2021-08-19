@@ -23,11 +23,11 @@ class HeaderInterceptor : Interceptor {
         val builder = request.newBuilder()
 
         builder.addHeader("Content-type", "application/json; charset=utf-8")
-         .header("token", "eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIxMDAxMDYzMiIsInN1YiI6IjEwMDEwNjMyIiwicHdkIjoiMDRkN2EwNzJjMWUzNTczMTFjMTA5OGNiNTg0N2ViNmUiLCJleHAiOjE2MzA2NTM5OTgsImlhdCI6MTYyOTE4Mjc2OSwianRpIjoiOWQ3Mjk3YjItOTNmOC00MGI3LTgxN2YtZmE0NzM2ZTJjYTZlIn0.zcLOcFh-_Y37pjkTibCc87kzqpLp8gUAI64_mxyt1AY")
-         .header("cfrom", "android")
-         .header("channel", "qiuwugui_az")
-         .header("pkg", "com.cd.yqty")
-         .header("version", "2021081801")
+         .addHeader("token", "eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIxMDAxMDYzMiIsInN1YiI6IjEwMDEwNjMyIiwicHdkIjoiMDRkN2EwNzJjMWUzNTczMTFjMTA5OGNiNTg0N2ViNmUiLCJleHAiOjE2MzA4MjUzOTYsImlhdCI6MTYyOTM1NDE2NywianRpIjoiZTI2NWM1MzQtYWY1YS00ZjhhLWFmMmYtZmE3MzhlNjg4ZDdiIn0.bv4swd32qjMpoPB_FJgNfTzAf8T8tX_FmTi_2Yk7jJE")
+         .addHeader("cfrom", "android")
+         .addHeader("channel", "qiuwugui_az")
+         .addHeader("pkg", "com.cd.yqty")
+         .addHeader("version", "2021081801")
 //         .method(request.method(), request.body())
 
         val domain = request.url.host
