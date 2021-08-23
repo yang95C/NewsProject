@@ -4,7 +4,7 @@ import com.blankj.utilcode.util.SPUtils
 
 class UserManager private constructor(){
     private val USER_NICKNAME = "nickname"
-    private lateinit var spUtil:SPUtils
+    private var spUtil:SPUtils
 
     companion object{
         private var instance:UserManager?=null
@@ -20,9 +20,7 @@ class UserManager private constructor(){
     }
 
     init {
-        if (spUtil == null){
-            spUtil = SPUtils.getInstance("user_info")
-        }
+        spUtil = SPUtils.getInstance("user_info")
     }
 
     fun getNickName():String{

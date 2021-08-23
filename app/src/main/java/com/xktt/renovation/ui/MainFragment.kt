@@ -13,6 +13,7 @@ import com.baidu.location.LocationClientOption.LocationMode
 import com.blankj.utilcode.util.PermissionUtils
 import com.google.android.material.tabs.TabLayout
 import com.xktt.renovation.R
+import com.xktt.renovation.app.UserManager
 import com.xktt.renovation.baselibs.base.BaseFragment
 import com.xktt.renovation.baselibs.utils.ToastUtils
 import com.xktt.renovation.ui.dynamic.fragment.DynamicFragment
@@ -47,7 +48,6 @@ class MainFragment : BaseFragment() {
         } else {
             getLocationClient()
         }
-
         val fragments = ArrayList<Fragment>()
         for (info in fragmentInfos) {
 //            //参数传递
@@ -189,8 +189,6 @@ class MainFragment : BaseFragment() {
     }
 
     fun addPermission(permissionsList: MutableList<String>, permission: String): Boolean {
-        // 如果应用没有获得对应权限,则添加到列表中,准备批量申请
-
         // 如果应用没有获得对应权限,则添加到列表中,准备批量申请
         return if (context?.let {
                 checkSelfPermission(
@@ -396,5 +394,10 @@ class MainFragment : BaseFragment() {
         }
     }
 
+    override fun onStop() {
+        client.unRegisterLocationListener(mListener)
+        client.stop()
+        super.onStop()
+    }
     class ChildFragmentInfo(val index: Int, val text: String, val iconResId: Int)
 }

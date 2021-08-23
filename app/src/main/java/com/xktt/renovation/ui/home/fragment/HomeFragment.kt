@@ -1,11 +1,13 @@
 package com.xktt.renovation.ui.home.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.xktt.renovation.R
+import com.xktt.renovation.baselibs.base.BaseMvpFragment
+import com.xktt.renovation.baselibs.utils.AppUtils
+import com.xktt.renovation.mvp.contract.HomeContract
+import com.xktt.renovation.mvp.presenter.HomePresenter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,7 +19,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : BaseMvpFragment<HomeContract.View, HomeContract.Presenter>(),HomeContract.View {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -28,14 +30,6 @@ class HomeFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     companion object {
@@ -56,5 +50,21 @@ class HomeFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun createPresenter(): HomeContract.Presenter {
+        return HomePresenter()
+    }
+
+    override fun attachLayoutRes(): Int {
+        return R.layout.fragment_home
+    }
+
+    override fun lazyLoad() {
+
+    }
+
+    override fun getRecordsSuccess(any: Any) {
+
     }
 }
