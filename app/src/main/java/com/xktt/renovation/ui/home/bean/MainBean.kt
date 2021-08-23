@@ -1,4 +1,4 @@
-package com.xktt.renovation.ui.main.bean
+package com.xktt.renovation.ui.home.bean
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
 

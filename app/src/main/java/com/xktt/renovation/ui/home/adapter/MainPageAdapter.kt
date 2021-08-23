@@ -1,4 +1,4 @@
-package com.xktt.renovation.ui.main.adapter
+package com.xktt.renovation.ui.home.adapter
 
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment

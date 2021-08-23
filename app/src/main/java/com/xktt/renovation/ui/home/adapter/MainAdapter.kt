@@ -1,10 +1,10 @@
-package com.xktt.renovation.ui.main.adapter
+package com.xktt.renovation.ui.home.adapter
 
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.xktt.renovation.R
-import com.xktt.renovation.ui.main.bean.MainBean
+import com.xktt.renovation.ui.home.bean.MainBean
 
 open class MainAdapter (layoutId:Int, data:MutableList<MainBean>? = null): BaseQuickAdapter<MainBean, BaseViewHolder>(layoutId,data) {
 

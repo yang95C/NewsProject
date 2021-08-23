@@ -1,4 +1,4 @@
-package com.xktt.renovation.ui.main.activity
+package com.xktt.renovation.ui
 
 import android.text.TextUtils
 import android.view.View

@@ -1,16 +1,18 @@
-package com.xktt.renovation.ui.main.fragment
+package com.xktt.renovation.ui.home.fragment
 
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xktt.renovation.baselibs.base.BaseMvpFragment
 import com.xktt.renovation.R
+import com.xktt.renovation.app.UserManager
 import com.xktt.renovation.baselibs.utils.ToastUtils
+import com.xktt.renovation.baselibs.widget.LoadingDialog
 import com.xktt.renovation.mvp.contract.TestContract
 import com.xktt.renovation.mvp.presenter.TestPresenter
-import com.xktt.renovation.ui.main.adapter.MainAdapter
-import com.xktt.renovation.ui.main.adapter.MainMultiItemAdapter
-import com.xktt.renovation.ui.main.bean.MainBean
+import com.xktt.renovation.ui.home.adapter.MainAdapter
+import com.xktt.renovation.ui.home.bean.MainBean
 import org.jetbrains.anko.support.v4.find
 
 /**
@@ -28,6 +30,7 @@ class TestFragment : BaseMvpFragment<TestContract.View, TestContract.Presenter>(
 //    lateinit var adapter: MainMultiItemAdapter
     lateinit var adapter: MainAdapter
     var mData = ArrayList<MainBean>()
+    lateinit var loadingDialog : LoadingDialog
 
     override fun createPresenter(): TestContract.Presenter = TestPresenter()
 
@@ -60,6 +63,12 @@ class TestFragment : BaseMvpFragment<TestContract.View, TestContract.Presenter>(
     }
 
     private fun loadData() {
+        //参数传递
+        arguments?.getString("position")?.let { Log.d("fragment", it) }
+
+        context?.let {
+          loadingDialog = LoadingDialog.showDialog(it,"加载中...",false)!!
+        }
         var b1 = MainBean(1)
         b1.name = "杨先生"
         b1.age = 23
@@ -79,6 +88,7 @@ class TestFragment : BaseMvpFragment<TestContract.View, TestContract.Presenter>(
 
     override fun getRecordsSuccess(any: Any) {
         ToastUtils.showToast("成功啦")
+        loadingDialog.dismiss()
     }
 
 }

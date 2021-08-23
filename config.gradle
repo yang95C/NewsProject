@@ -61,7 +61,8 @@ ext {
             "spinkit"      : 'com.github.ybq:Android-SpinKit:1.4.0',
             "arouter"      : "com.alibaba:arouter-api:${dependVersion.arouter}",
             "rxpermissions": 'com.github.tbruyelle:rxpermissions:0.12',
-            "baseRecycler" : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.1'
+            "baseRecycler" : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.1',
+            "utilcode"     : 'com.blankj:utilcodex:1.30.6'
     ]
 
     annotationProcessorDeps = [
