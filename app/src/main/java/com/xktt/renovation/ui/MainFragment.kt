@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.baidu.location.*
 import com.baidu.location.LocationClientOption.LocationMode
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.google.android.material.tabs.TabLayout
 import com.xktt.renovation.R
@@ -48,6 +49,7 @@ class MainFragment : BaseFragment() {
         } else {
             getLocationClient()
         }
+//        activity?.let { BarUtils.setStatusBarLightMode(it,true) }
         val fragments = ArrayList<Fragment>()
         for (info in fragmentInfos) {
 //            //参数传递

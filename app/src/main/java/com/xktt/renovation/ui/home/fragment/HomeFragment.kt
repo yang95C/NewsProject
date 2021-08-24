@@ -3,11 +3,17 @@ package com.xktt.renovation.ui.home.fragment
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.scwang.smart.refresh.header.ClassicsHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.xktt.renovation.R
 import com.xktt.renovation.baselibs.base.BaseMvpFragment
 import com.xktt.renovation.baselibs.utils.AppUtils
+import com.xktt.renovation.baselibs.utils.GlideUtil
 import com.xktt.renovation.mvp.contract.HomeContract
 import com.xktt.renovation.mvp.presenter.HomePresenter
+import org.jetbrains.anko.support.v4.find
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +29,8 @@ class HomeFragment : BaseMvpFragment<HomeContract.View, HomeContract.Presenter>(
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val smartRefresh by lazy { find<SmartRefreshLayout>(R.id.smartRefresh) }
+    private val recyclerView by lazy { find<RecyclerView>(R.id.recyclerView) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +69,8 @@ class HomeFragment : BaseMvpFragment<HomeContract.View, HomeContract.Presenter>(
     }
 
     override fun lazyLoad() {
-
+        smartRefresh.setHeaderHeight(60f)
+        smartRefresh.setRefreshHeader(ClassicsHeader(context))
     }
 
     override fun getRecordsSuccess(any: Any) {
