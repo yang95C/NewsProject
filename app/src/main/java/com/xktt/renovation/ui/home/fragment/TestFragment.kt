@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xktt.renovation.baselibs.base.BaseMvpFragment
 import com.xktt.renovation.R
-import com.xktt.renovation.app.UserManager
 import com.xktt.renovation.baselibs.utils.ToastUtils
 import com.xktt.renovation.baselibs.widget.LoadingDialog
 import com.xktt.renovation.mvp.contract.TestContract

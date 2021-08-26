@@ -8,10 +8,10 @@ import com.xktt.renovation.constant.Constant
  * @date 2018/11/21
  * @desc
  */
-object MainRetrofit : RetrofitFactory<MainApi>() {
+object ApiRetrofit : RetrofitFactory<ApiInterface>() {
 
     override fun baseUrl(): String = Constant.BASE_URL
 
-    override fun getService(): Class<MainApi> = MainApi::class.java
+    override fun getService(): Class<ApiInterface> = ApiInterface::class.java
 
 }

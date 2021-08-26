@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.my.activity.SettingActivity">
+
+    <include layout="@layout/item_head_layout" />
+
+    <TextView
+        android:id="@+id/tv_data"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@color/text_white"
+        android:drawableEnd="@mipmap/icon_more_right"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp10"
+        android:paddingEnd="@dimen/dp10"
+        android:text="个人资料"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/sp14" />
+
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:layout_marginTop="@dimen/dp1"
+        android:background="@color/text_white"
+        android:drawableEnd="@mipmap/icon_more_right"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp10"
+        android:paddingEnd="@dimen/dp10"
+        android:text="装修信息"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/sp14" />
+
+    <TextView
+        android:id="@+id/tv_safe"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:layout_marginTop="@dimen/dp1"
+        android:background="@color/text_white"
+        android:drawableEnd="@mipmap/icon_more_right"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp10"
+        android:paddingEnd="@dimen/dp10"
+        android:text="账户与安全"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/sp14" />
+
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:layout_marginTop="@dimen/dp1"
+        android:background="@color/text_white"
+        android:drawableEnd="@mipmap/icon_more_right"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp10"
+        android:paddingEnd="@dimen/dp10"
+        android:text="关于我们"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/sp14" />
+</LinearLayout>

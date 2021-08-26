@@ -5,9 +5,10 @@ import com.xktt.renovation.bean.CollectionArticle
 import com.xktt.renovation.bean.CollectionResponseBody
 import com.xktt.renovation.bean.HttpResult
 import io.reactivex.rxjava3.core.Observable
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
-interface MainApi {
+interface ApiInterface {
 
     @GET("banner/json")
     fun getHomeBanner(): Observable<HttpResult<MutableList<Banner>>>
@@ -53,5 +54,12 @@ interface MainApi {
     @GET("lg/collect/list/{page}/json")
     fun getCollectList(@Path("page") page: Int)
             : Observable<HttpResult<CollectionResponseBody<CollectionArticle>>>
+
+    /**
+     * 上传图片
+     */
+    @Multipart
+    @POST("/sprapi/file/fileUpload")
+    fun updateImage(@Header("token") token:String, @Part multipartFile:MultipartBody.Part, @Query("fileType") fileType:String):Observable<HttpResult<Any>>
 
 }

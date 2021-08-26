@@ -10,11 +10,9 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.baidu.location.*
 import com.baidu.location.LocationClientOption.LocationMode
-import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.google.android.material.tabs.TabLayout
 import com.xktt.renovation.R
-import com.xktt.renovation.app.UserManager
 import com.xktt.renovation.baselibs.base.BaseFragment
 import com.xktt.renovation.baselibs.utils.ToastUtils
 import com.xktt.renovation.ui.dynamic.fragment.DynamicFragment
@@ -78,12 +76,7 @@ class MainFragment : BaseFragment() {
                 fragmentInfos[2].text
             )
         )
-        fragments.add(
-            MyFragment.newInstance(
-                fragmentInfos[3].index.toString(),
-                fragmentInfos[3].text
-            )
-        )
+        fragments.add(MyFragment())
         viewPager.setCanScroll(false)
         viewPager.setSmoothScroll(false)
         viewPager.adapter = MainPageAdapter(fragments, nameList, childFragmentManager)

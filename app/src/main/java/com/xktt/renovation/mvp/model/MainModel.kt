@@ -5,7 +5,7 @@ import com.xktt.renovation.bean.Banner
 import com.xktt.renovation.bean.CollectionArticle
 import com.xktt.renovation.bean.CollectionResponseBody
 import com.xktt.renovation.bean.HttpResult
-import com.xktt.renovation.http.MainRetrofit
+import com.xktt.renovation.http.ApiRetrofit
 import com.xktt.renovation.mvp.contract.MainContract
 import io.reactivex.rxjava3.core.Observable
 
@@ -17,23 +17,23 @@ import io.reactivex.rxjava3.core.Observable
 class MainModel : BaseModel(), MainContract.Model {
 
     override fun getBanners(): Observable<HttpResult<MutableList<Banner>>> {
-        return MainRetrofit.service.getHomeBanner()
+        return ApiRetrofit.service.getHomeBanner()
     }
 
     override fun login(username: String, password: String): Observable<HttpResult<Any>> {
-        return MainRetrofit.service.login(username, password)
+        return ApiRetrofit.service.login(username, password)
     }
 
     override fun getBannerList(): Observable<HttpResult<MutableList<Banner>>> {
-        return MainRetrofit.service.getBannerList()
+        return ApiRetrofit.service.getBannerList()
     }
 
     override fun getCollectList(page: Int): Observable<HttpResult<CollectionResponseBody<CollectionArticle>>> {
-        return MainRetrofit.service.getCollectList(page)
+        return ApiRetrofit.service.getCollectList(page)
     }
 
     override fun logout(): Observable<HttpResult<Any>> {
-        return MainRetrofit.service.logout()
+        return ApiRetrofit.service.logout()
     }
 
     override fun getSubscribeList(
@@ -41,7 +41,7 @@ class MainModel : BaseModel(), MainContract.Model {
         page: Int,
         pageSize: Int
     ): Observable<HttpResult<Any>> {
-        return MainRetrofit.service.getSubscribeList(token, page, pageSize)
+        return ApiRetrofit.service.getSubscribeList(token, page, pageSize)
     }
 
 }
