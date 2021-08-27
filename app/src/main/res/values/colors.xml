@@ -71,6 +71,7 @@
     <color name="text_black">#3F3F3F</color>
     <color name="text_grey">#9F9F9F</color>
     <color name="text_grey1">#6F6F6F</color>
+    <color name="text_grey2">#666666</color>
     <color name="view_grey">#F1F2F3</color>
     <color name="text_white">#FFFFFF</color>
     <color name="app_blue">#029A57</color>

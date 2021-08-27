@@ -1,13 +1,14 @@
 package com.xktt.renovation.ui.my.fragment
 
 import android.content.Intent
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.xktt.renovation.R
 import com.xktt.renovation.baselibs.base.BaseMvpFragment
 import com.xktt.renovation.mvp.contract.MyContract
 import com.xktt.renovation.mvp.presenter.MyPresenter
 import com.xktt.renovation.ui.home.activity.CityListActivity
-import com.xktt.renovation.ui.my.activity.SettingActivity
+import com.xktt.renovation.ui.login.LoginDialog
 import kotlinx.android.synthetic.main.fragment_my.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,6 +36,11 @@ class MyFragment : BaseMvpFragment<MyContract.View,MyContract.Presenter>(),MyCon
             val intent = Intent(context,CityListActivity().javaClass)
             startActivity(intent)
         }
+        ll_diary.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(v: View?) {
+                LoginDialog().newInstance()?.show(childFragmentManager,"login")
+            }
+        })
     }
 
     override fun getRecordsSuccess(any: Any) {

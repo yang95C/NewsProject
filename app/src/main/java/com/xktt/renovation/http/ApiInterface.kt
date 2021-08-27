@@ -1,11 +1,10 @@
 package com.xktt.renovation.http
 
-import com.xktt.renovation.bean.Banner
-import com.xktt.renovation.bean.CollectionArticle
-import com.xktt.renovation.bean.CollectionResponseBody
-import com.xktt.renovation.bean.HttpResult
+import com.xktt.renovation.bean.*
+import com.xktt.renovation.ui.login.UserInfoBean
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.http.*
 
 interface ApiInterface {
@@ -55,6 +54,10 @@ interface ApiInterface {
     fun getCollectList(@Path("page") page: Int)
             : Observable<HttpResult<CollectionResponseBody<CollectionArticle>>>
 
+
+    /**************************************************************** 接口 ******************************************************************************************/
+
+
     /**
      * 上传图片
      */
@@ -62,4 +65,22 @@ interface ApiInterface {
     @POST("/sprapi/file/fileUpload")
     fun updateImage(@Header("token") token:String, @Part multipartFile:MultipartBody.Part, @Query("fileType") fileType:String):Observable<HttpResult<Any>>
 
+
+    /**
+     * 获取图形验证码
+     */
+    @GET("/zxapi/login/getGraphicalCode")
+    fun graphicalCode(@Query("mobile") mobile:String): Observable<ResponseBody>
+
+    /**
+     * 获取手机验证码
+     */
+    @GET("/zxapi/login/getCode")
+    fun getPhoneCode(@Query("mobile") mobile:String, @Query("vcode") vcode :String): Observable<HttpResult<Any>>
+
+    /**
+     * 登录
+     */
+    @POST("/zxapi/login/yzmLogin")
+    fun loginCode(@Body maps : Map<String, String>): Observable<HttpResult<UserInfoBean>>
 }
