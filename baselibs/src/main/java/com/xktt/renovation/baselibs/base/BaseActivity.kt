@@ -11,6 +11,7 @@ import com.xktt.renovation.baselibs.utils.CommonUtil
 import com.xktt.renovation.baselibs.utils.KeyBoardUtil
 import com.xktt.renovation.baselibs.utils.StatusBarUtil
 import com.tbruyelle.rxpermissions3.RxPermissions
+import com.xktt.renovation.baselibs.R
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -63,13 +64,13 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * 设置状态栏图标的颜色
      *
-     * @param dark true: 黑色  false: 白色
+     * @param dark true:白色   false: 黑色
      */
     fun setStatusBarIcon(dark: Boolean) {
         if (dark) {
-            StatusBarUtil.setLightMode(this)
-        } else {
             StatusBarUtil.setDarkMode(this)
+        } else {
+            StatusBarUtil.setLightMode(this)
         }
     }
 
@@ -79,6 +80,8 @@ abstract class BaseActivity : AppCompatActivity() {
         // requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT // 强制竖屏
         setContentView(attachLayoutRes())
         if (useEventBus()) EventBus.getDefault().register(this)
+        setStatusBarColor(resources.getColor(R.color.white))
+        StatusBarUtil.setLightMode(this)
         initView()
         initData()
         start()

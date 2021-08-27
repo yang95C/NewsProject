@@ -11,6 +11,7 @@ import com.xktt.renovation.baselibs.utils.NetWorkUtil
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
+import okhttp3.ResponseBody
 
 /**
  * @author chenxz
@@ -67,6 +68,47 @@ fun <T : BaseBean> Observable<T>.ss(
         })
 }
 
+
+fun <T : BaseBean> Observable<T>.ss(
+    onSuccess: (T) -> Unit,
+    onError: ((T) -> Unit)? = null
+) {
+    this.compose(SchedulerUtils.ioToMain())
+        .retryWhen(RetryWithDelay())
+        .subscribe(object : Observer<T> {
+            override fun onComplete() {
+
+            }
+
+            override fun onSubscribe(d: Disposable) {
+                if (!NetWorkUtil.isConnected()) {
+                    d.dispose()
+                    onComplete()
+                }
+            }
+
+            override fun onNext(t: T) {
+                when {
+                    t.errorCode == HttpStatus.SUCCESS -> onSuccess.invoke(t)
+                    t.errorCode == HttpStatus.TOKEN_INVALID -> {
+                        // Token 过期，重新登录
+                    }
+                    else -> {
+                        if (onError != null) {
+                            onError.invoke(t)
+                        } else {
+
+                        }
+                    }
+                }
+            }
+
+            override fun onError(t: Throwable) {
+
+            }
+        })
+}
+
 fun <T : BaseBean> Observable<T>.sss(
     view: IView?,
     isShowLoading: Boolean = true,
@@ -97,3 +139,31 @@ fun <T : BaseBean> Observable<T>.sss(
             view?.showError(ExceptionHandle.handleException(it))
         })
 }
+
+
+fun <T : ResponseBody> Observable<T>.getResponseBody(
+    onSuccess: (T) -> Unit
+) {
+    this.compose(SchedulerUtils.ioToMain())
+        .retryWhen(RetryWithDelay())
+        .subscribe(object : Observer<T> {
+            override fun onComplete() {
+
+            }
+
+            override fun onSubscribe(d: Disposable) {
+                if (!NetWorkUtil.isConnected()) {
+                    d.dispose()
+                    onComplete()
+                }
+            }
+
+            override fun onNext(t: T) {
+                onSuccess.invoke(t)
+            }
+
+            override fun onError(t: Throwable) {
+            }
+        })
+}
+
