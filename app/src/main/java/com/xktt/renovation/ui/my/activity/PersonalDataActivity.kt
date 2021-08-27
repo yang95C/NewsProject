@@ -121,7 +121,7 @@ class PersonalDataActivity : BaseMvpActivity<PersonalDataContract.View, Personal
     }
 
     override fun uploadImageSuccess(any: Any) {
-        Log.d("uploadImage",any.toString())
+        UserManager.get().setUserHead(any.toString())
     }
 
     override fun createPresenter(): PersonalDataContract.Presenter {

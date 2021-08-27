@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.PermissionUtils
 import com.google.android.material.tabs.TabLayout
 import com.xktt.renovation.R
 import com.xktt.renovation.baselibs.base.BaseFragment
+import com.xktt.renovation.baselibs.config.UserManager
 import com.xktt.renovation.baselibs.utils.ToastUtils
 import com.xktt.renovation.ui.dynamic.fragment.DynamicFragment
 import com.xktt.renovation.ui.home.adapter.MainPageAdapter
@@ -333,6 +334,10 @@ class MainFragment : BaseFragment() {
                     sb.append("\ndescribe : ")
                     sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机")
                 }
+                UserManager.get().setUserCity(location.city)
+                UserManager.get().setUserLocation(location.addrStr)
+                UserManager.get().setUserLatitude(location.latitude.toString())
+                UserManager.get().setUserLongtitude(location.longitude.toString())
                Log.d("location",sb.toString())
             }
         }

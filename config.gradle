@@ -67,6 +67,7 @@ ext {
             "rxpermissions"    : 'com.github.tbruyelle:rxpermissions:0.12',
             "baseRecycler"     : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.1',
             "utilcode"         : 'com.blankj:utilcodex:1.30.6',
+            "tinypinyin"       : 'com.github.promeg:tinypinyin:2.0.3',
             "pictureselector"  : 'io.github.lucksiege:pictureselector:v2.7.3-rc03'//图片选择器
     ]
 

@@ -6,6 +6,7 @@ import com.xktt.renovation.R
 import com.xktt.renovation.baselibs.base.BaseMvpFragment
 import com.xktt.renovation.mvp.contract.MyContract
 import com.xktt.renovation.mvp.presenter.MyPresenter
+import com.xktt.renovation.ui.home.activity.CityListActivity
 import com.xktt.renovation.ui.my.activity.SettingActivity
 import kotlinx.android.synthetic.main.fragment_my.*
 
@@ -31,7 +32,7 @@ class MyFragment : BaseMvpFragment<MyContract.View,MyContract.Presenter>(),MyCon
 
     override fun lazyLoad() {
         tv_set.setOnClickListener {
-            val intent = Intent(context,SettingActivity().javaClass)
+            val intent = Intent(context,CityListActivity().javaClass)
             startActivity(intent)
         }
     }
