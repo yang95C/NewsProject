@@ -50,9 +50,12 @@ class PersonalDataActivity : BaseMvpActivity<PersonalDataContract.View, Personal
         tv_head_title.setText("个人资料")
         img_head_back.setSingleClickListener { onBackPressed() }
         ll_head.setOnClickListener(this)
+        ll_pass.setOnClickListener(this)
     }
 
     override fun start() {
+        tv_user_name.text = UserManager.get().getNickName()
+        GlideUtil.loadImage(this,img_user,UserManager.get().getUserHead(),R.mipmap.default_mine_head,R.mipmap.default_mine_head,false)
 //        UserManager.get().setUserToken("eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIxMDAxMDYzMiIsInN1YiI6IjEwMDEwNjMyIiwicHdkIjoiMDRkN2EwNzJjMWUzNTczMTFjMTA5OGNiNTg0N2ViNmUiLCJleHAiOjE2MzA4MjUzOTYsImlhdCI6MTYyOTM1NDE2NywianRpIjoiZTI2NWM1MzQtYWY1YS00ZjhhLWFmMmYtZmE3MzhlNjg4ZDdiIn0.bv4swd32qjMpoPB_FJgNfTzAf8T8tX_FmTi_2Yk7jJE")
     }
 
@@ -60,6 +63,10 @@ class PersonalDataActivity : BaseMvpActivity<PersonalDataContract.View, Personal
         when (v?.id){
             R.id.ll_head ->{
                 addHead()
+            }
+            R.id.ll_pass ->{
+                val intent = Intent(this,SettingPassActivity().javaClass)
+                startActivity(intent)
             }
         }
     }

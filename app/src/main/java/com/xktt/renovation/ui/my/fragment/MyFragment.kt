@@ -5,10 +5,13 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.xktt.renovation.R
 import com.xktt.renovation.baselibs.base.BaseMvpFragment
+import com.xktt.renovation.baselibs.utils.ToastUtils
 import com.xktt.renovation.mvp.contract.MyContract
 import com.xktt.renovation.mvp.presenter.MyPresenter
 import com.xktt.renovation.ui.home.activity.CityListActivity
 import com.xktt.renovation.ui.login.LoginDialog
+import com.xktt.renovation.ui.login.UserInfoBean
+import com.xktt.renovation.ui.my.activity.SettingActivity
 import kotlinx.android.synthetic.main.fragment_my.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,12 +36,18 @@ class MyFragment : BaseMvpFragment<MyContract.View,MyContract.Presenter>(),MyCon
 
     override fun lazyLoad() {
         tv_set.setOnClickListener {
-            val intent = Intent(context,CityListActivity().javaClass)
+            val intent = Intent(context,SettingActivity().javaClass)
             startActivity(intent)
         }
         ll_diary.setOnClickListener(object :View.OnClickListener{
             override fun onClick(v: View?) {
-                LoginDialog().newInstance()?.show(childFragmentManager,"login")
+               val loginDialog = LoginDialog().newInstance()
+                loginDialog?.show(childFragmentManager,"login")
+                loginDialog?.setLoginListener(object :LoginDialog.OnLoginSuccessListener{
+                    override fun OnLoginSuccess(bean: UserInfoBean) {
+
+                    }
+                })
             }
         })
     }

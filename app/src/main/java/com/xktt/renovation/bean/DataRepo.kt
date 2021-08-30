@@ -16,7 +16,9 @@ import com.squareup.moshi.Json
 //)
 
 data class HttpResult<T>(
-        @Json(name = "data") val data: T
+        @Json(name = "data") val data: T,
+        @Json(name = "retcode") val retcode: String,
+        @Json(name = "retmsg") val retmsg: String
 ) : BaseBean()
 
 //轮播图

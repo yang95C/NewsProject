@@ -79,8 +79,19 @@ interface ApiInterface {
     fun getPhoneCode(@Query("mobile") mobile:String, @Query("vcode") vcode :String): Observable<HttpResult<Any>>
 
     /**
-     * 登录
+     * 验证码登录
      */
     @POST("/zxapi/login/yzmLogin")
     fun loginCode(@Body maps : Map<String, String>): Observable<HttpResult<UserInfoBean>>
+    /**
+     * 密码登录
+     */
+    @POST("/zxapi/login/passwordLogin")
+    fun loginPass(@Body maps : Map<String, String>): Observable<HttpResult<UserInfoBean>>
+
+    /**
+     * 修改密码
+     */
+    @POST("/zxapi/user/setPassword")
+    fun updataPass(@Body maps : Map<String, String>): Observable<HttpResult<Any>>
 }

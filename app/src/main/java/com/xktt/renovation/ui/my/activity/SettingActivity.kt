@@ -22,6 +22,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
         tv_info.setOnClickListener(this)
         tv_safe.setOnClickListener(this)
         tv_about.setOnClickListener(this)
+        tv_about.setOnClickListener(this)
     }
 
     override fun start() {
