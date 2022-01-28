@@ -8,9 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.constant.TimeConstants.MSEC
 import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.TimeUtils
 import com.yg.newsproject.R
 import com.yg.newsproject.baselibs.base.BaseActivity
 import com.yg.newsproject.baselibs.ext.ss
