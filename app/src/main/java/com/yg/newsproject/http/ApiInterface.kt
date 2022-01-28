@@ -94,4 +94,14 @@ interface ApiInterface {
      */
     @POST("/zxapi/user/setPassword")
     fun updataPass(@Body maps : Map<String, String>): Observable<HttpResult<Any>>
+
+
+
+
+    /***********************************************  新闻项目接口  ***********************************************************/
+    /**
+     * 获取启动页广告图
+     */
+    @GET("/a/appAdvetiseInfo/getAdveInfoByConId")
+    fun getStartPageAd(@Query("positionId") positionId:String,@Query("deviceType") deviceType:String): Observable<HttpResult<MutableList<StartPageBean>>>
 }

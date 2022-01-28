@@ -1,44 +1,119 @@
 package com.yg.newsproject.ui
 
 import android.content.Intent
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.constant.TimeConstants.MSEC
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.TimeUtils
 import com.yg.newsproject.R
 import com.yg.newsproject.baselibs.base.BaseActivity
+import com.yg.newsproject.baselibs.ext.ss
+import com.yg.newsproject.baselibs.utils.DateUtils
+import com.yg.newsproject.baselibs.utils.GlideUtil
+import com.yg.newsproject.constant.Constant
+import com.yg.newsproject.http.ApiRetrofit
 import com.youth.banner.Banner
 import com.youth.banner.adapter.BannerAdapter
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.listener.OnPageChangeListener
 import org.jetbrains.anko.find
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class StartPageActivity : BaseActivity(), OnPageChangeListener {
     private lateinit var banner: Banner<Int, BannerImageAdapter<Int>>
+    private lateinit var tvAd :TextView
+    private lateinit var adapter : ImageAdapter
+    private lateinit var imgList : MutableList<Any>
+    private lateinit var countDownTimer: CountDownTimer
+    private var loopTime = 2000L
+    private val baseTime = 1000L
+    private val startTime = 3000L
+    private var adTime = 0L
 
     override fun attachLayoutRes(): Int {
         return R.layout.activity_start_page
     }
 
     override fun initView() {
+        BarUtils.transparentStatusBar(this)
         banner = find(R.id.banner)
-        val list = ArrayList<Int>()
-        list.add(R.mipmap.icon_start_page)
-        list.add(R.mipmap.ic_launcher)
-        val adapter = ImageAdapter(list)
+        tvAd = find(R.id.tv_ad)
+        imgList = ArrayList()
+        adapter = ImageAdapter(imgList as ArrayList<Any>)
         banner.addBannerLifecycleObserver(this)
             .setAdapter(adapter)
-            .setLoopTime(1500)
-//            .setIndicator(CircleIndicator(this))
         banner.addOnPageChangeListener(this)
+        tvAd.setOnClickListener {
+            if (countDownTimer != null){
+                countDownTimer.cancel()
+                val intent = Intent(
+                    this@StartPageActivity,
+                    MainActivity().javaClass
+                )
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 
     override fun start() {
+        ApiRetrofit.service.getStartPageAd("7",Constant.DEVICE_TYPE).ss(onSuccess = {
+            if (it.status == 200 && !it.data.isNullOrEmpty() && it.data.size > 0){
+                val data = it.data[0]
+                if (!DateUtils.isThanTarget(data.startDate) && DateUtils.isThanTarget(data.endDate)){
+                    imgList.addAll(data.titleFilePath)
+                    loopTime = data.startDisplayTime[0].toLong() * baseTime
+                } else {
+                    imgList.add(R.mipmap.icon_start_page)
+                }
+            } else {
+                imgList.add(R.mipmap.icon_start_page)
+            }
+            startTimer()
+        },onError = {
+            imgList.add(R.mipmap.icon_start_page)
+            startTimer()
+        })
+    }
+    private fun startTimer(){
+        tvAd.isVisible = true
+        adTime = loopTime * imgList.size / baseTime
+        tvAd.text = "${adTime}s"
+        banner.setLoopTime(loopTime).start()
+        adapter.notifyDataSetChanged()
+        countDownTimer = object : CountDownTimer(adTime * baseTime,baseTime) {
+            override fun onTick(millisUntilFinished: Long) {
+                if (millisUntilFinished > startTime){
+                    tvAd.isClickable = false
+                    tvAd.text = "${millisUntilFinished / baseTime}s"
+                } else {
+                    tvAd.text = "跳转${millisUntilFinished / baseTime}s"
+                    tvAd.isClickable = true
+                }
+            }
 
+            override fun onFinish() {
+                tvAd.text = "跳转0s"
+                val intent = Intent(
+                    this@StartPageActivity,
+                    MainActivity().javaClass
+                )
+                startActivity(intent)
+                finish()
+            }
+
+        }.start()
     }
 
-    class ImageAdapter(list: ArrayList<Int>) : BannerAdapter<Int, ImageHolder>(list) {
+    class ImageAdapter(list: ArrayList<Any>) : BannerAdapter<Any, ImageHolder>(list) {
         override fun onCreateHolder(parent: ViewGroup?, viewType: Int): ImageHolder {
             val imageView = ImageView(parent?.context)
             //注意，必须设置为match_parent，这个是viewpager2强制要求的
@@ -51,9 +126,14 @@ class StartPageActivity : BaseActivity(), OnPageChangeListener {
             return ImageHolder(imageView)
         }
 
-        override fun onBindView(holder: ImageHolder?, data: Int?, position: Int, size: Int) {
+        override fun onBindView(holder: ImageHolder?, data: Any?, position: Int, size: Int) {
             var view = holder?.itemView as ImageView
-            data?.let { view.setImageResource(it) }
+            if (data is String){
+                GlideUtil.loadImage(view.context,view,data,R.mipmap.icon_start_page,R.mipmap.icon_start_page,false)
+            } else {
+                data?.let { view.setImageResource(it as Int) }
+            }
+
         }
 
     }
@@ -66,13 +146,9 @@ class StartPageActivity : BaseActivity(), OnPageChangeListener {
 
     override fun onPageSelected(position: Int) {
         Log.d("PageSelected", position.toString())
-        if (position == 1) {
+        if (position == imgList.size - 2) {
             banner.isAutoLoop(false)
-            banner.postDelayed(Runnable {
-                val intent = Intent(this,MainActivity().javaClass)
-                startActivity(intent)
-                finish()
-            },1500)
+            banner.stop()
         }
     }
 
