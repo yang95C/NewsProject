@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".ui.home.fragment.HomeFragment">
 
-    <com.xktt.renovation.baselibs.view.StatusBarSpaceView
+    <com.yg.newsproject.baselibs.view.StatusBarSpaceView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:visibility="gone"/>

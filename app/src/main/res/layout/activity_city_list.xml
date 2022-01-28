@@ -43,7 +43,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_search" />
-    <com.xktt.renovation.widgets.IndexWord
+    <com.yg.newsproject.widgets.IndexWord
         android:id="@+id/indexWord"
         android:layout_width="@dimen/dp30"
         android:layout_height="match_parent"
