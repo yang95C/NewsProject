@@ -1,0 +1,52 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        if (isBuildModule.toBoolean()) {
+            applicationId "com.yg.main"
+        }
+
+        // ARouter
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    sourceSets{
+        main {
+             jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    //统一资源前缀，规范资源引用
+    resourcePrefix "main_"
+}
+
+
+
+dependencies {
+
+    testImplementation rootProject.ext.testDeps["junit"]
+    androidTestImplementation rootProject.ext.testDeps["runner"]
+    androidTestImplementation rootProject.ext.testDeps["espresso-core"]
+
+    //组件中依赖阿里路由编译框架
+    annotationProcessor rootProject.ext.annotationProcessorDeps["arouter-compiler"]
+    // 组件依赖基础库
+    api project(':lib_common')
+}

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.yg.newsproject">
     <!-- 获取GSM网络信息状态，如当前的网络连接是否有效 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许访问Wi-Fi网络状态信息 -->
@@ -28,13 +29,13 @@
         <activity android:name=".ui.my.activity.PersonalDataActivity" />
         <activity android:name=".ui.my.activity.SettingActivity" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.yg.main.ui.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MainTestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.StartPageActivity"
+            android:name="com.yg.main.ui.StartPageActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,14 +44,17 @@
 
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
-        </activity> <!-- 声明service组件 -->
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" /> <!-- AK鉴权 -->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="请输入百度开放平台申请的Android端API KEY" />
+        </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.cd.yqty.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepath" />
+        </provider>
     </application>
 
 </manifest>

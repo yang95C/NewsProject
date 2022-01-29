@@ -15,9 +15,9 @@ import com.yg.newsproject.baselibs.base.BaseMvpActivity
 import com.yg.newsproject.baselibs.ext.setSingleClickListener
 import com.yg.newsproject.baselibs.utils.GlideUtil
 import com.yg.newsproject.baselibs.view.GlideEngine
-import com.yg.newsproject.mvp.contract.PersonalDataContract
-import com.yg.newsproject.mvp.presenter.PersonalDataPresenter
-import com.yg.newsproject.utils.DialogUtil
+import com.yg.main.mvp.contract.PersonalDataContract
+import com.yg.main.mvp.presenter.PersonalDataPresenter
+import com.yg.newsproject.baselibs.utils.DialogUtil
 import kotlinx.android.synthetic.main.activity_personal_data.*
 import kotlinx.android.synthetic.main.item_head_layout.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

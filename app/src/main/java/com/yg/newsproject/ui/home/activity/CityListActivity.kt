@@ -11,12 +11,12 @@ import com.google.gson.reflect.TypeToken
 import com.yg.newsproject.R
 import com.yg.newsproject.baselibs.base.BaseMvpActivity
 import com.yg.newsproject.baselibs.utils.AssetsUtils
-import com.yg.newsproject.mvp.contract.CityListContract
-import com.yg.newsproject.mvp.presenter.CityListPresenter
+import com.yg.main.mvp.contract.CityListContract
+import com.yg.main.mvp.presenter.CityListPresenter
 import com.yg.newsproject.ui.home.adapter.CityListAdapter
 import com.yg.newsproject.ui.home.bean.CityBean
 import com.yg.newsproject.ui.home.bean.CityListBean
-import com.yg.newsproject.widgets.IndexWord
+import com.yg.newsproject.baselibs.widget.IndexWord
 import kotlinx.android.synthetic.main.activity_city_list.*
 import java.lang.Exception
 import java.util.*

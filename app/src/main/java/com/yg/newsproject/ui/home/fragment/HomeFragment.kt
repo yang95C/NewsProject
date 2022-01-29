@@ -8,8 +8,8 @@ import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yg.newsproject.R
 import com.yg.newsproject.baselibs.base.BaseMvpFragment
-import com.yg.newsproject.mvp.contract.HomeContract
-import com.yg.newsproject.mvp.presenter.HomePresenter
+import com.yg.main.mvp.contract.HomeContract
+import com.yg.main.mvp.presenter.HomePresenter
 import org.jetbrains.anko.support.v4.find
 
 // TODO: Rename parameter arguments, choose names that match

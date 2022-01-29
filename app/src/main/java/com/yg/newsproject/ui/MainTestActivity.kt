@@ -6,13 +6,13 @@ import com.bumptech.glide.Glide
 import com.yg.newsproject.baselibs.base.BaseMvpTitleActivity
 import com.yg.newsproject.R
 import com.yg.newsproject.baselibs.ext.setSingleClickListener
-import com.yg.newsproject.bean.Banner
-import com.yg.newsproject.bean.CollectionArticle
-import com.yg.newsproject.bean.CollectionResponseBody
-import com.yg.newsproject.mvp.contract.MainContract
-import com.yg.newsproject.mvp.presenter.MainPresenter
-import com.yg.newsproject.utils.DialogUtil
-import com.yg.newsproject.utils.PermissionHelper
+import com.yg.lib_core.bean.Banner
+import com.yg.lib_core.bean.CollectionArticle
+import com.yg.lib_core.bean.CollectionResponseBody
+import com.yg.main.mvp.contract.MainContract
+import com.yg.main.mvp.presenter.MainPresenter
+import com.yg.newsproject.baselibs.utils.DialogUtil
+import com.yg.main.dialog.PermissionHelper
 import kotlinx.android.synthetic.main.activity_main_test.*
 
 class MainTestActivity : BaseMvpTitleActivity<MainContract.View, MainContract.Presenter>(),

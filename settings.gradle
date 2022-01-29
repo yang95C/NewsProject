@@ -1,1 +1,6 @@
 include ':app', ':baselibs'
+include ':lib_common'
+include ':module_main'
+include ':lib_core'
+include ':lib_sdk'
+include ':module_user'

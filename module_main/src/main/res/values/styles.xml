@@ -1,0 +1,167 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- 配置Android提供的theme -->
+        <item name="android:textAppearanceListItemSmall">@style/QDTextAppearanceListItemSmall</item>
+        <item name="android:textAppearanceListItem">@style/QDtextAppearanceListItem</item>
+        <item name="android:listPreferredItemHeight">?attr/qmui_list_item_height_higher</item>
+        <item name="android:listPreferredItemHeightSmall">?attr/qmui_list_item_height</item>
+
+        <!-- 配置qmui提供的theme -->
+        <item name="qmui_config_color_blue">@color/app_color_blue</item>
+        <item name="qmui_round_btn_bg_color">@color/s_btn_blue_bg</item>
+        <item name="qmui_round_btn_border_color">@color/s_btn_blue_border</item>
+        <item name="qmui_round_btn_text_color">@color/s_btn_blue_text</item>
+        <item name="qmui_content_spacing_horizontal">20dp</item>
+        <item name="qmui_content_padding_horizontal">@dimen/qmui_content_spacing_horizontal</item>
+
+        <item name="QMUITopBarStyle">@style/QDTopBar</item>
+
+        <!--关闭启动窗口-->
+        <item name="android:windowDisablePreview">true</item>
+        <!-- 配置app自己的theme -->
+        <item name="app_primary_color">?attr/qmui_config_color_blue</item>
+        <item name="app_content_bg_color">@color/qmui_config_color_white</item>
+
+    </style>
+
+    <style name="QDTextAppearanceListItemSmall">
+        <item name="android:textColor">?attr/qmui_config_color_gray_4</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">?attr/qmui_s_list_item_bg_with_border_bottom_inset_left
+        </item>
+    </style>
+
+    <style name="QDtextAppearanceListItem">
+        <item name="android:textColor">?attr/qmui_config_color_black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">?attr/qmui_s_list_item_bg_with_border_bottom_inset_left
+        </item>
+    </style>
+
+    <style name="QDTopBar" parent="QMUI.TopBar">
+        <item name="qmui_topbar_bg_color">?attr/app_primary_color</item>
+        <item name="qmui_topbar_title_color">@color/qmui_config_color_white</item>
+        <item name="qmui_topbar_subtitle_color">@color/qmui_config_color_white</item>
+        <item name="qmui_topbar_text_btn_color_state_list">@color/s_topbar_btn_color</item>
+        <item name="qmui_topbar_height">48dp</item>
+        <item name="qmui_topbar_image_btn_height">48dp</item>
+    </style>
+
+    <style name="CommonButtonStyles">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp40</item>
+        <item name="android:background">@drawable/common_btn_bg_selector</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@drawable/common_btn_text_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginStart">@dimen/dp15</item>
+        <item name="android:layout_marginEnd">@dimen/dp15</item>
+    </style>
+
+    <!-- CustomProgressDialog -->
+    <style name="CustomProgressDialog" parent="@android:style/Theme.Dialog">
+        <!-- Dialog的windowFrame框为无 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 是否显示title -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 设置dialog的背景 -->
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 用来控制灰度的值，当为1时，界面除了我们的dialog内容是高亮显示的，dialog以外的区域是黑色的，完全看不到其他内容，系统的默认值是0.5 -->
+        <item name="android:backgroundDimAmount">0.2</item>
+        <!-- 是否模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="BaseNoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar" tools:ignore="ResourceName" />
+    <!--白色主题样式，，注意每一项都不能少-->
+    <style name="picture.white.style" parent="BaseNoActionBarTheme" tools:ignore="ResourceName">
+        <!-- Customize your theme here. -->
+        <!--标题栏背景色-->
+        <item name="colorPrimary">@color/text_white</item>
+        <!--状态栏背景色-->
+        <item name="colorPrimaryDark">@color/text_white</item>
+        <!--是否改变图片列表界面状态栏字体颜色为黑色-->
+        <item name="picture.statusFontColor">true</item>
+        <!--返回键图标-->
+        <item name="picture.leftBack.icon">@mipmap/ic_back_arrow</item>
+        <!--标题下拉箭头-->
+        <item name="picture.arrow_down.icon">@mipmap/ic_orange_arrow_down</item>
+        <!--标题上拉箭头-->
+        <item name="picture.arrow_up.icon">@mipmap/ic_orange_arrow_up</item>
+        <!--标题文字颜色-->
+        <item name="picture.title.textColor">@color/text_black</item>
+        <!--标题栏右边文字-->
+        <item name="picture.right.textColor">@color/text_grey</item>
+        <!--图片列表勾选样式-->
+        <item name="picture.checked.style">@drawable/picture_checkbox_selector</item>
+        <!--开启图片列表勾选数字模式,开启的话勾选样式要换-->
+        <item name="picture.style.checkNumMode">false</item>
+        <!--选择图片样式0/9-->
+        <item name="picture.style.numComplete">false</item>
+        <!--图片列表底部背景色-->
+        <item name="picture.bottom.bg">@color/text_white</item>
+        <!--图片列表预览文字颜色-->
+        <item name="picture.preview.textColor">@color/text_white</item>
+        <!--图片列表已完成文字颜色-->
+        <item name="picture.complete.textColor">@color/app_blue</item>
+        <!--图片已选数量圆点背景色-->
+        <item name="picture.num.style">@drawable/num_oval_blue</item>
+        <!--预览界面标题栏背景色-->
+        <item name="picture.ac_preview.title.bg">@color/text_white</item>
+        <!--预览界面标题文字颜色-->
+        <item name="picture.ac_preview.title.textColor">@color/text_black</item>
+        <!--预览界面已完成文字颜色-->
+        <item name="picture.ac_preview.complete.textColor">@color/text_black
+        </item>
+        <!--预览界面底部背景色-->
+        <item name="picture.ac_preview.bottom.bg">@color/picture_color_fa</item>
+        <!--预览界面返回箭头-->
+        <item name="picture.preview.leftBack.icon">@mipmap/ic_back_arrow</item>
+        <!--裁剪页面标题背景色-->
+        <item name="picture.crop.toolbar.bg">@color/text_white</item>
+        <!--裁剪页面状态栏颜色-->
+        <item name="picture.crop.status.color">@color/text_white</item>
+        <!--裁剪页面标题文字颜色-->
+        <item name="picture.crop.title.color">@color/text_black</item>
+        <!--相册文件夹列表选中图标-->
+        <item name="picture.folder_checked_dot">@drawable/num_oval_blue</item>
+        <!--原图勾选样式-->
+        <item name="picture.original.check.style">@drawable/picture_original_checkbox</item>
+        <!--原图字体颜色-->
+        <item name="picture.original.text.color">@color/picture_color_53575e</item>
+        <!--标题栏高度-->
+        <item name="picture.titleBar.height">@dimen/dp50</item>
+    </style>
+
+    <style name="BottomDialog" parent="android:Theme.Holo.Light.Dialog" tools:ignore="ResourceName">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="BottomDialog1" parent="android:Theme.Holo.Light.Dialog" tools:ignore="ResourceName">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+</resources>

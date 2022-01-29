@@ -8,8 +8,8 @@ import com.yg.newsproject.baselibs.base.BaseMvpFragment
 import com.yg.newsproject.R
 import com.yg.newsproject.baselibs.utils.ToastUtils
 import com.yg.newsproject.baselibs.widget.LoadingDialog
-import com.yg.newsproject.mvp.contract.TestContract
-import com.yg.newsproject.mvp.presenter.TestPresenter
+import com.yg.main.mvp.contract.TestContract
+import com.yg.main.mvp.presenter.TestPresenter
 import com.yg.newsproject.ui.home.adapter.MainAdapter
 import com.yg.newsproject.ui.home.bean.MainBean
 import org.jetbrains.anko.support.v4.find

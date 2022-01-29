@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
-        applicationId "com.yg.newsproject"
+        applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -14,6 +14,13 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         multiDexEnabled true
+
+        // ARouter
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
 
     }
     buildTypes {
@@ -32,9 +39,17 @@ android {
 
     sourceSets {
         main {
-            jniLibs.srcDirs = ['libs']
             assets {
                 srcDirs 'src\\main\\assets'
+            }
+            if (isBuildModule.toBoolean()){
+                manifest.srcFile 'src/main/alone/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                //集成开发模式下排除debug文件夹中的所有Java文件
+                java {
+                    exclude 'debug/**'
+                }
             }
         }
     }
@@ -53,31 +68,18 @@ android {
     }
 }
 
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
-}
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation (name: 'BaiduLBS_AndroidSDK_Lib', ext:'aar')
-    testImplementation rootProject.ext.testDeps["junit"]
-    androidTestImplementation rootProject.ext.testDeps["runner"]
-    androidTestImplementation rootProject.ext.testDeps["espresso-core"]
-
     // leakCanary
     debugImplementation rootProject.ext.testDeps["leakcanary-debug"]
     releaseImplementation rootProject.ext.testDeps["leakcanary-release"]
+    //依赖阿里路由编译框架
+    annotationProcessor rootProject.ext.annotationProcessorDeps["arouter-compiler"]
+    if (isBuildModule.toBoolean()){
+        implementation project(':lib_common')
+    } else {
+        implementation project(':module_main')
+        implementation project(':module_user')
+    }
 
-    implementation project(':baselibs')
-//    implementation 'io.github.iceCola7:kotlin-mvp:1.0.4@aar'
-//    implementation 'com.cxz:kotlin-mvp:1.0.2'
-    // qmui
-    implementation 'com.qmuiteam:qmui:1.2.0'
 }

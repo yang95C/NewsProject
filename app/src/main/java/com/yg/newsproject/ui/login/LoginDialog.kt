@@ -12,12 +12,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.RegexUtils
+import com.yg.lib_core.bean.UserInfoBean
 import com.yg.newsproject.R
 import com.yg.newsproject.baselibs.config.UserManager
-import com.yg.newsproject.baselibs.ext.ss
 import com.yg.newsproject.baselibs.utils.ToastUtils
-import com.yg.newsproject.http.ApiRetrofit
-import com.yg.newsproject.widgets.ImgCodeDialog
+import com.yg.lib_core.http.ApiRetrofit
+import com.yg.main.dialog.ImgCodeDialog
+import com.yg.newsproject.baselibs.ext.ss
 import org.jetbrains.anko.find
 import org.jetbrains.anko.textColor
 

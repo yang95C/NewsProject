@@ -1,5 +1,6 @@
 ext {
     android = [
+            applicationId: "com.yg.newsproject",
             compileSdkVersion: 30,
             buildToolsVersion: "30.0.3",
             minSdkVersion    : 19,
@@ -74,6 +75,7 @@ ext {
     annotationProcessorDeps = [
             "arouter-compiler"    : "com.alibaba:arouter-compiler:${dependVersion.arouter}",
             "glide-compiler"      : "com.github.bumptech.glide:compiler:${dependVersion.glide}",
+            "qmuiteam"            : "com.qmuiteam:qmui:1.2.0",
             "moshi-kotlin-codegen": "com.squareup.moshi:moshi-kotlin-codegen:${dependVersion.moshi}"
     ]
 
