@@ -13,7 +13,6 @@ import com.baidu.location.*
 import com.blankj.utilcode.util.PermissionUtils
 import com.google.android.material.tabs.TabLayout
 import com.yg.common.adapter.MainPageAdapter
-import com.yg.common.router.RouterActivityPath
 import com.yg.common.router.RouterFragmentPath
 import com.yg.main.R
 import com.yg.newsproject.baselibs.base.BaseFragment
@@ -59,32 +58,10 @@ class MainFragment : BaseFragment() {
 //            fragments.add(fragment)
             nameList.add(info.text)
         }
-//        fragments.add(
-//            HomeFragment.newInstance(
-//                fragmentInfos[0].index.toString(),
-//                fragmentInfos[0].text
-//            )
-//        )
-//        fragments.add(
-//            RenovationFragment.newInstance(
-//                fragmentInfos[1].index.toString(),
-//                fragmentInfos[1].text
-//            )
-//        )
-//        fragments.add(
-//            DynamicFragment.newInstance(
-//                fragmentInfos[2].index.toString(),
-//                fragmentInfos[2].text
-//            )
-//        )
-        val fragment = ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER).navigation()
-        fragments.add(fragment as Fragment)
-        fragments.add(fragment)
-        fragments.add(fragment)
-        fragments.add(fragment)
-//        fragments.add(ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER).navigation() as Fragment)
-//        fragments.add(ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER).navigation() as Fragment)
-//        fragments.add(ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER).navigation() as Fragment)
+
+        fragments.add(ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER).navigation() as Fragment)
+        fragments.add(ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER).navigation() as Fragment)
+        fragments.add(ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER).navigation() as Fragment)
 
         viewPager.setCanScroll(false)
         viewPager.setSmoothScroll(false)

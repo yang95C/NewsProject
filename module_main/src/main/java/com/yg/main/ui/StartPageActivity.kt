@@ -1,6 +1,5 @@
 package com.yg.main.ui
 
-import android.content.Intent
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.BarUtils
+import com.yg.common.router.ARouterNavigator
 import com.yg.lib_core.http.ApiRetrofit
 import com.yg.main.R
 import com.yg.newsproject.baselibs.base.BaseActivity
@@ -52,11 +52,7 @@ class StartPageActivity : BaseActivity(), OnPageChangeListener {
         tvAd.setOnClickListener {
             if (countDownTimer != null){
                 countDownTimer.cancel()
-                val intent = Intent(
-                    this@StartPageActivity,
-                    MainActivity().javaClass
-                )
-                startActivity(intent)
+                ARouterNavigator().navigateHomeActivity(this@StartPageActivity)
                 finish()
             }
         }
@@ -100,11 +96,7 @@ class StartPageActivity : BaseActivity(), OnPageChangeListener {
 
             override fun onFinish() {
                 tvAd.text = "跳转0s"
-                val intent = Intent(
-                    this@StartPageActivity,
-                    MainActivity().javaClass
-                )
-                startActivity(intent)
+                ARouterNavigator().navigateHomeActivity(this@StartPageActivity)
                 finish()
             }
 

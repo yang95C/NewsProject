@@ -1,14 +1,9 @@
 package com.yg.user.ui.fragment
 
-import android.content.Intent
 import android.view.View
-import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yg.common.router.RouterFragmentPath
-
 import com.yg.newsproject.baselibs.base.BaseMvpFragment
-
-import com.yg.lib_core.bean.UserInfoBean
 import com.yg.user.R
 import com.yg.user.ui.mvp.contract.MyContract
 import com.yg.user.ui.mvp.presenter.MyPresenter

@@ -5,7 +5,11 @@ plugins {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
@@ -17,13 +21,6 @@ android {
 
         if (isBuildModule.toBoolean()) {
             applicationId "com.yg.main"
-        }
-
-        // ARouter
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
-            }
         }
     }
 
@@ -44,9 +41,7 @@ dependencies {
     testImplementation rootProject.ext.testDeps["junit"]
     androidTestImplementation rootProject.ext.testDeps["runner"]
     androidTestImplementation rootProject.ext.testDeps["espresso-core"]
-
-    //组件中依赖阿里路由编译框架
-    annotationProcessor rootProject.ext.annotationProcessorDeps["arouter-compiler"]
+    kapt rootProject.ext.annotationProcessorDeps["arouter-compiler"]
     // 组件依赖基础库
     api project(':lib_common')
 }

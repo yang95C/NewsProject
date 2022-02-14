@@ -2,7 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
@@ -14,13 +18,6 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         multiDexEnabled true
-
-        // ARouter
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
-            }
-        }
 
     }
     buildTypes {
@@ -73,8 +70,7 @@ dependencies {
     // leakCanary
     debugImplementation rootProject.ext.testDeps["leakcanary-debug"]
     releaseImplementation rootProject.ext.testDeps["leakcanary-release"]
-    //依赖阿里路由编译框架
-    annotationProcessor rootProject.ext.annotationProcessorDeps["arouter-compiler"]
+    kapt rootProject.ext.annotationProcessorDeps["arouter-compiler"]
     if (isBuildModule.toBoolean()){
         implementation project(':lib_common')
     } else {
