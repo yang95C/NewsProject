@@ -93,7 +93,7 @@ class MainFragment : BaseFragment() {
 
     private fun getLocationClient():LocationClient{
         client = LocationClient(context)
-        client.setLocOption(getDefaultLocationClientOption())
+        client.locOption = getDefaultLocationClientOption()
         client.registerLocationListener(mListener)
         client.start()
         return client
@@ -101,13 +101,13 @@ class MainFragment : BaseFragment() {
 
     private fun getDefaultLocationClientOption(): LocationClientOption {
         mOption = LocationClientOption()
-        mOption.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy) // 可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+        mOption.locationMode = LocationClientOption.LocationMode.Hight_Accuracy // 可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         mOption.setCoorType("bd09ll") // 可选，默认gcj02，设置返回的定位结果坐标系，如果配合百度地图使用，建议设置为bd09ll;
         mOption.setIsNeedAddress(true) // 可选，设置是否需要地址信息，默认不需要
         mOption.setIsNeedLocationDescribe(true) // 可选，设置是否需要地址描述
         mOption.setIsNeedLocationDescribe(true) // 可选，默认false，设置是否需要位置语义化结果，可以在BDLocation
         mOption.setIsNeedLocationPoiList(true) // 可选，默认false，设置是否需要POI结果，可以在BDLocation
-        mOption.setOpenGps(true) // 可选，默认false，设置是否开启Gps定位
+        mOption.isOpenGps = true // 可选，默认false，设置是否开启Gps定位
         return mOption
     }
 
@@ -127,7 +127,7 @@ class MainFragment : BaseFragment() {
 
     }
 
-    fun getPersimmions() {
+    private fun getPersimmions() {
 //        if (!PermissionUtils.isGranted(Manifest.permission.ACCESS_COARSE_LOCATION)){
 //            PermissionUtils.permission(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION)
 //        } else{
@@ -169,7 +169,7 @@ class MainFragment : BaseFragment() {
         }
     }
 
-    fun addPermission(permissionsList: MutableList<String>, permission: String): Boolean {
+    private fun addPermission(permissionsList: MutableList<String>, permission: String): Boolean {
         // 如果应用没有获得对应权限,则添加到列表中,准备批量申请
         return if (context?.let {
                 checkSelfPermission(

@@ -12,7 +12,6 @@ class MainActivity : BaseActivity() {
     override fun attachLayoutRes(): Int = R.layout.activity_main
 
     override fun initView() {
-
         ActivityUtils.addFragment(supportFragmentManager, MainFragment::class.java,R.id.frameLayout)
     }
 

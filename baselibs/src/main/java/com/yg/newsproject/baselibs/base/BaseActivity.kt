@@ -11,7 +11,7 @@ import com.yg.newsproject.baselibs.utils.CommonUtil
 import com.yg.newsproject.baselibs.utils.KeyBoardUtil
 import com.yg.newsproject.baselibs.utils.StatusBarUtil
 import com.tbruyelle.rxpermissions3.RxPermissions
-import com.yg.newsproject.baselibs.R
+import com.yg.newsproject.baselibs.utils.SettingUtil
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -20,6 +20,11 @@ import org.greenrobot.eventbus.EventBus
  * @desc BaseActivity
  */
 abstract class BaseActivity : AppCompatActivity() {
+
+    /**
+     * theme color
+     */
+    private var mThemeColor: Int = SettingUtil.getColor()
 
     /**
      * 布局文件id
@@ -58,6 +63,7 @@ abstract class BaseActivity : AppCompatActivity() {
      * 设置状态栏的背景颜色
      */
     fun setStatusBarColor(@ColorInt color: Int) {
+        SettingUtil.setColor(color)
         StatusBarUtil.setColor(this, color, 0)
     }
 
@@ -80,8 +86,9 @@ abstract class BaseActivity : AppCompatActivity() {
         // requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT // 强制竖屏
         setContentView(attachLayoutRes())
         if (useEventBus()) EventBus.getDefault().register(this)
-        setStatusBarColor(resources.getColor(R.color.white))
         StatusBarUtil.setLightMode(this)
+        mThemeColor = SettingUtil.getColor()
+        setStatusBarColor(mThemeColor)
         initView()
         initData()
         start()
