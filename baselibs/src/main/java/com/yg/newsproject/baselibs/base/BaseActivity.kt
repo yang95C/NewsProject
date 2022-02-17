@@ -62,8 +62,8 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * 设置状态栏的背景颜色
      */
-    fun setStatusBarColor(@ColorInt color: Int) {
-        SettingUtil.setColor(color)
+    fun setStatusBarColor(@ColorInt color: Int,colorType: Int) {
+        SettingUtil.setColor(color,colorType)
         StatusBarUtil.setColor(this, color, 0)
     }
 
@@ -88,7 +88,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (useEventBus()) EventBus.getDefault().register(this)
         StatusBarUtil.setLightMode(this)
         mThemeColor = SettingUtil.getColor()
-        setStatusBarColor(mThemeColor)
+        setStatusBarColor(mThemeColor,SettingUtil.getColorType())
         initView()
         initData()
         start()

@@ -4,6 +4,7 @@ import com.yg.newsproject.baselibs.mvp.IModel
 import com.yg.newsproject.baselibs.mvp.IPresenter
 import com.yg.newsproject.baselibs.mvp.IView
 import com.yg.lib_core.bean.HttpResult
+import com.yg.lib_core.bean.MainMenuBean
 import io.reactivex.rxjava3.core.Observable
 
 /**
@@ -14,15 +15,15 @@ import io.reactivex.rxjava3.core.Observable
 interface HomeContract {
 
     interface View : IView {
-        fun getRecordsSuccess(any: Any)
+        fun getMainMenuSuccess(data: MutableList<MainMenuBean>?)
     }
 
     interface Presenter : IPresenter<View> {
-        fun getRecords(token: String, page: Int, pageSize: Int)
+        fun findMainMenu()
     }
 
     interface Model : IModel {
-        fun getRecords(token:String,page:Int,pageSize:Int): Observable<HttpResult<Any>>
+        fun findMainMenu(): Observable<HttpResult<MutableList<MainMenuBean>>>
     }
 
 }

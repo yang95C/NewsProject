@@ -2,8 +2,10 @@ package com.yg.main.mvp.model
 
 import com.yg.newsproject.baselibs.mvp.BaseModel
 import com.yg.lib_core.bean.HttpResult
+import com.yg.lib_core.bean.MainMenuBean
 import com.yg.lib_core.http.ApiRetrofit
 import com.yg.main.mvp.contract.HomeContract
+import com.yg.newsproject.baselibs.constant.Constant
 import io.reactivex.rxjava3.core.Observable
 
 /**
@@ -12,8 +14,8 @@ import io.reactivex.rxjava3.core.Observable
  * @desc
  */
 class HomeModel : BaseModel(), HomeContract.Model {
-    override fun getRecords(token: String, page: Int, pageSize: Int): Observable<HttpResult<Any>> {
-       return ApiRetrofit.service.getRecords(token,page,pageSize,"android","fotmkt_az","com.cd.yqty","2021081801")
+    override fun findMainMenu(): Observable<HttpResult<MutableList<MainMenuBean>>> {
+        return ApiRetrofit.service.findMainMenu(Constant.DEVICE_TYPE)
     }
 
 }

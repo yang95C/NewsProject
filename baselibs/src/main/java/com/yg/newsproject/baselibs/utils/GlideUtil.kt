@@ -7,6 +7,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.yg.newsproject.baselibs.R
 
 class GlideUtil private constructor() {
 
@@ -82,6 +83,19 @@ class GlideUtil private constructor() {
                     .error(errorResId)
                     .into(imageView)
             }
+        }
+
+        fun loadImage(
+            context: Context,
+            imageView: ImageView,
+            url: String
+        ){
+            Glide.with(context)
+                .load(url)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE) //缓存转换后的资源
+                .placeholder(R.drawable.shape_pic_load_bg)
+                .error(R.drawable.shape_pic_load_bg)
+                .into(imageView)
         }
 
         /**

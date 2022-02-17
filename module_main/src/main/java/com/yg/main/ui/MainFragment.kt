@@ -6,17 +6,27 @@ import android.os.Build
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.baidu.location.*
 import com.blankj.utilcode.util.PermissionUtils
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.yg.common.adapter.MainPageAdapter
 import com.yg.common.router.RouterFragmentPath
+import com.yg.lib_core.bean.MainMenuBean
+import com.yg.lib_core.http.ApiRetrofit
 import com.yg.main.R
-import com.yg.newsproject.baselibs.base.BaseFragment
+import com.yg.main.mvp.contract.MainContract
+import com.yg.main.mvp.presenter.MainPresenter
+import com.yg.newsproject.baselibs.base.BaseMvpFragment
 import com.yg.newsproject.baselibs.config.UserManager
+import com.yg.newsproject.baselibs.constant.Constant
+import com.yg.newsproject.baselibs.ext.ss
+import com.yg.newsproject.baselibs.utils.GlideUtil
+import com.yg.newsproject.baselibs.utils.SettingUtil
 import com.yg.newsproject.baselibs.utils.ToastUtils
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.item_tab.view.*
@@ -27,18 +37,46 @@ import kotlinx.android.synthetic.main.item_tab.view.*
  * Use the [MainFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainFragment : BaseFragment() {
-    private val fragmentInfos: ArrayList<ChildFragmentInfo> = arrayListOf(
-        ChildFragmentInfo(0, "首页", R.drawable.main_tab_community_selector),
-        ChildFragmentInfo(1, "装修", R.drawable.main_tab_nominate_selector),
-        ChildFragmentInfo(2, "动态", R.drawable.main_tab_nominate_selector),
-        ChildFragmentInfo(3, "我的", R.drawable.main_tab_mine_selector)
-    )
+class MainFragment : BaseMvpFragment<MainContract.View, MainContract.Presenter>(),
+    MainContract.View {
     private var nameList = ArrayList<String>()
+    private var fragments = ArrayList<Fragment>()
+    private val menuList = ArrayList<MainMenuBean>()
     private val SDK_PERMISSION_REQUEST = 127
     private lateinit var mOption: LocationClientOption
-    private lateinit var client : LocationClient
+    private lateinit var client: LocationClient
+
+    override fun createPresenter(): MainContract.Presenter {
+        return MainPresenter()
+    }
+
     override fun attachLayoutRes(): Int = R.layout.fragment_main
+    override fun lazyLoad() {
+//        mPresenter?.findMainMenu()
+        ApiRetrofit.service.findMainMenu(Constant.DEVICE_TYPE).ss(onSuccess = {
+            if (it?.data != null && it.data.size > 0) {
+                menuList.clear()
+                menuList.addAll(it.data)
+                for (i in it.data.indices) {
+                    val bean = it.data[i]
+                    nameList.add(bean.name)
+                    fragments.add(
+                        ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
+                            .navigation() as Fragment
+                    )
+                }
+            }
+            viewPager.adapter?.notifyDataSetChanged()
+            viewPager.offscreenPageLimit = menuList.size
+            for (i in fragments.indices){
+                val bean = it.data[i]
+                val tab: TabLayout.Tab? = tabLayout.getTabAt(i)
+                tab?.customView = getTabView(i,bean)
+            }
+        }, onError = {
+
+        })
+    }
 
     override fun initView(view: View) {
         if (!PermissionUtils.isGranted(Manifest.permission.ACCESS_COARSE_LOCATION)) {
@@ -46,37 +84,32 @@ class MainFragment : BaseFragment() {
         } else {
             getLocationClient()
         }
-
+        view.findViewById<AppBarLayout>(R.id.appbarLayout)
+            .setBackgroundColor(SettingUtil.getColor())
 //        activity?.let { BarUtils.setStatusBarLightMode(it,true) }
-        val fragments = ArrayList<Fragment>()
-        for (info in fragmentInfos) {
-//            //参数传递
-//            val fragment = TestFragment()
-//            var bl = Bundle()
-//            bl.putString("position","" + info.index)
-//            fragment.arguments = bl
-//            fragments.add(fragment)
-            nameList.add(info.text)
-        }
-
-        fragments.add(ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER).navigation() as Fragment)
-        fragments.add(ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER).navigation() as Fragment)
-        fragments.add(ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER).navigation() as Fragment)
-
         viewPager.setCanScroll(false)
         viewPager.setSmoothScroll(false)
         viewPager.adapter = MainPageAdapter(fragments, nameList, childFragmentManager)
-        viewPager.offscreenPageLimit = fragmentInfos.size
         tabLayout.setupWithViewPager(viewPager)
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
 //                Log.d("TabLayout","选中onTabSelected")
+                val textView = tab?.customView?.findViewById<TextView>(R.id.tab_text)
+                val imgView = tab?.customView?.findViewById<ImageView>(R.id.tab_image)
+                if (textView != null)
+                textView?.setTextColor(SettingUtil.getColor())
+                if (imgView != null)
+                context?.let { GlideUtil.loadImage(it,imgView!!,getThemeImage(tab?.position))}
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
 //                Log.d("TabLayout","选中onTabUnselected")
-                if (fragmentInfos[0].text == tab?.text.toString())
-                    tab?.customView?.findViewById<ImageView>(R.id.tab_image)?.isActivated = false
+                val textView = tab?.customView?.findViewById<TextView>(R.id.tab_text)
+                val imgView = tab?.customView?.findViewById<ImageView>(R.id.tab_image)
+                if (textView != null)
+                textView?.setTextColor(context!!.resources.getColor(R.color.text_grey))
+                if (imgView != null)
+                context?.let { GlideUtil.loadImage(it,imgView!!,menuList[tab?.position!!].imgUrl) }
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -84,14 +117,45 @@ class MainFragment : BaseFragment() {
             }
 
         })
+    }
 
-        for (i in fragmentInfos.indices) { // 循环添加自定义的tab
-            val tab: TabLayout.Tab? = tabLayout.getTabAt(i)
-            tab?.customView = getTabView(i)
+    private fun getTabView(position: Int,bean: MainMenuBean): View? {
+        layoutInflater.inflate(R.layout.item_tab, tabLayout, false).apply {
+            // View设置属性，注意上面引用的包（import属于你们自己的包路径）
+            this.tab_text.text = bean.name
+            if (position == 0){
+                this.tab_text.setTextColor(SettingUtil.getColor())
+                GlideUtil.loadImage(context,this.tab_image,bean.imgUrl)
+                if (!bean.subjects.isNullOrEmpty() && bean.subjects.size > 0){
+                    GlideUtil.loadImage(context,this.tab_image,getThemeImage(position))
+                } else {
+                    GlideUtil.loadImage(context,this.tab_image,bean.imgUrl)
+                }
+            } else {
+                GlideUtil.loadImage(context,this.tab_image,bean.imgUrl)
+            }
+            return this
         }
     }
 
-    private fun getLocationClient():LocationClient{
+    private fun getThemeImage(position: Int): String{
+        val bean = menuList[position]
+        val name = when (SettingUtil.getColorType()){
+            0 -> "朝霞映日"
+            1 -> "流光溢彩"
+            2 -> "紫气东来"
+            else -> "蓝色的梦"
+        }
+        for (data in bean.subjects){
+            if (data.name == name){
+                return data.subjectImgUrl
+            }
+        }
+        return ""
+    }
+
+
+    private fun getLocationClient(): LocationClient {
         client = LocationClient(context)
         client.locOption = getDefaultLocationClientOption()
         client.registerLocationListener(mListener)
@@ -101,7 +165,8 @@ class MainFragment : BaseFragment() {
 
     private fun getDefaultLocationClientOption(): LocationClientOption {
         mOption = LocationClientOption()
-        mOption.locationMode = LocationClientOption.LocationMode.Hight_Accuracy // 可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+        mOption.locationMode =
+            LocationClientOption.LocationMode.Hight_Accuracy // 可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         mOption.setCoorType("bd09ll") // 可选，默认gcj02，设置返回的定位结果坐标系，如果配合百度地图使用，建议设置为bd09ll;
         mOption.setIsNeedAddress(true) // 可选，设置是否需要地址信息，默认不需要
         mOption.setIsNeedLocationDescribe(true) // 可选，设置是否需要地址描述
@@ -109,22 +174,6 @@ class MainFragment : BaseFragment() {
         mOption.setIsNeedLocationPoiList(true) // 可选，默认false，设置是否需要POI结果，可以在BDLocation
         mOption.isOpenGps = true // 可选，默认false，设置是否开启Gps定位
         return mOption
-    }
-
-    private fun getTabView(position: Int): View? {
-        layoutInflater.inflate(R.layout.item_tab, tabLayout, false).apply {
-            // View设置属性，注意上面引用的包（import属于你们自己的包路径）
-            this.tab_image.setImageResource(fragmentInfos[position].iconResId)
-            this.tab_text.text = fragmentInfos[position].text
-            if (position == 0) {
-                this.tab_image.isActivated = true
-            }
-            return this
-        }
-    }
-
-    override fun lazyLoad() {
-
     }
 
     private fun getPersimmions() {
@@ -194,7 +243,7 @@ class MainFragment : BaseFragment() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == SDK_PERMISSION_REQUEST){
+        if (requestCode == SDK_PERMISSION_REQUEST) {
             getLocationClient()
         } else {
             ToastUtils.showToast("请打开定位权限，不开启某些功能将无法正常工作！")
@@ -323,7 +372,7 @@ class MainFragment : BaseFragment() {
                 UserManager.get().setUserLocation(location.addrStr)
                 UserManager.get().setUserLatitude(location.latitude.toString())
                 UserManager.get().setUserLongtitude(location.longitude.toString())
-               Log.d("location",sb.toString())
+                Log.d("location", sb.toString())
             }
         }
 
@@ -384,5 +433,11 @@ class MainFragment : BaseFragment() {
         client.stop()
         super.onStop()
     }
+
     class ChildFragmentInfo(val index: Int, val text: String, val iconResId: Int)
+
+    override fun getMainMenuSuccess(data: MutableList<MainMenuBean>?) {
+
+    }
+
 }

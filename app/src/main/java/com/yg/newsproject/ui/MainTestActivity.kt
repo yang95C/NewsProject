@@ -9,14 +9,14 @@ import com.yg.newsproject.baselibs.ext.setSingleClickListener
 import com.yg.lib_core.bean.Banner
 import com.yg.lib_core.bean.CollectionArticle
 import com.yg.lib_core.bean.CollectionResponseBody
-import com.yg.main.mvp.contract.MainContract
-import com.yg.main.mvp.presenter.MainPresenter
+import com.yg.main.mvp.contract.MainTestContract
+import com.yg.main.mvp.presenter.MainTestPresenter
 import com.yg.newsproject.baselibs.utils.DialogUtil
 import com.yg.main.dialog.PermissionHelper
 import kotlinx.android.synthetic.main.activity_main_test.*
 
-class MainTestActivity : BaseMvpTitleActivity<MainContract.View, MainContract.Presenter>(),
-    MainContract.View {
+class MainTestActivity : BaseMvpTitleActivity<MainTestContract.View, MainTestContract.Presenter>(),
+    MainTestContract.View {
 
     private val mDialog by lazy {
         DialogUtil.getWaitDialog(this, "正在加载")
@@ -24,7 +24,7 @@ class MainTestActivity : BaseMvpTitleActivity<MainContract.View, MainContract.Pr
 
     override fun attachChildLayoutRes(): Int = R.layout.activity_main_test
 
-    override fun createPresenter(): MainContract.Presenter = MainPresenter()
+    override fun createPresenter(): MainTestContract.Presenter = MainTestPresenter()
 
     override fun hasBackIcon(): Boolean = true
 
@@ -37,7 +37,7 @@ class MainTestActivity : BaseMvpTitleActivity<MainContract.View, MainContract.Pr
     }
 
     override fun initView() {
-        setStatusBarColor(resources.getColor(R.color.colorPrimary))
+        setStatusBarColor(resources.getColor(R.color.colorPrimary),0)
         setStatusBarIcon(false)
         super.initView()
         setBaseTitleColor(android.R.color.white)

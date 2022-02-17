@@ -5,7 +5,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.yg.main.ui.MainFragment">
+    tools:context="com.yg.main.ui.MainFragment"
+    tools:ignore="ResourceName">
+
+    <include layout="@layout/toolbar_layout"/>
 
     <com.yg.common.scrollviewpager.ScrollViewPager
         android:id="@+id/viewPager"

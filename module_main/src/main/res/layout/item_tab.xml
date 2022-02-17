@@ -8,15 +8,17 @@
     tools:ignore="ResourceName">
     <ImageView
         android:id="@+id/tab_image"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/dp25"
+        android:layout_height="@dimen/dp25"
+        android:scaleType="centerCrop"
         android:src="@drawable/main_tab_community_selector" />
 
     <TextView
         android:id="@+id/tab_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
+        android:layout_marginTop="@dimen/dp1"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/sp12"
         tools:text="text" />
 </LinearLayout>

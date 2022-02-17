@@ -14,9 +14,9 @@ class HomePresenter : BasePresenter<HomeContract.Model, HomeContract.View>(), Ho
 
     override fun createModel(): HomeContract.Model? = HomeModel()
 
-    override fun getRecords(token: String, page: Int, pageSize: Int) {
-        mModel?.getRecords(token,page,pageSize)?.ss(mModel,mView,onSuccess = {
-            mView?.getRecordsSuccess(it.data)
+    override fun findMainMenu() {
+        mModel?.findMainMenu()?.ss(mModel,mView,onSuccess = {
+            mView?.getMainMenuSuccess(it?.data)
         })
     }
 

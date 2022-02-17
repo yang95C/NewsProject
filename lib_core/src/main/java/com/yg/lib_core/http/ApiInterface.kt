@@ -103,4 +103,10 @@ interface ApiInterface {
      */
     @GET("/a/appAdvetiseInfo/getAdveInfoByConId")
     fun getStartPageAd(@Query("positionId") positionId:String,@Query("deviceType") deviceType:String): Observable<HttpResult<MutableList<StartPageBean>>>
+
+    /**
+     * 获取主菜单
+     */
+    @GET("/a/columnType/findNewAllList")
+    fun findMainMenu(@Query("deviceType") deviceType:String): Observable<HttpResult<MutableList<MainMenuBean>>>
 }
