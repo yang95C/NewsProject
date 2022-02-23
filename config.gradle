@@ -17,7 +17,8 @@ ext {
             rxAndroid: "3.0.0",
             rxKotlin : "3.0.1",
             anko     : "0.10.8",
-            moshi    : "1.12.0"
+            moshi    : "1.12.0",
+            room     : "2.2.5"
     ]
 
     androidxDeps = [
@@ -70,6 +71,8 @@ ext {
             "baseRecycler"     : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.1',
             "utilcode"         : 'com.blankj:utilcodex:1.30.6',
             "tinypinyin"       : 'com.github.promeg:tinypinyin:2.0.3',
+            "room-runtime"     : "androidx.room:room-runtime:${dependVersion.room}",
+            "room-rxjava2"     : "androidx.room:room-rxjava2:${dependVersion.room}",
             "pictureselector"  : 'io.github.lucksiege:pictureselector:v2.7.3-rc03'//图片选择器
     ]
 
@@ -77,6 +80,7 @@ ext {
             "arouter-compiler"    : "com.alibaba:arouter-compiler:${dependVersion.arouter}",
             "glide-compiler"      : "com.github.bumptech.glide:compiler:${dependVersion.glide}",
             "qmuiteam"            : "com.qmuiteam:qmui:1.2.0",
+            "room-compliper"      : "androidx.room:room-compiler:${dependVersion.room}",
             "moshi-kotlin-codegen": "com.squareup.moshi:moshi-kotlin-codegen:${dependVersion.moshi}"
     ]
 

@@ -16,7 +16,8 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.yg.common.adapter.MainPageAdapter
 import com.yg.common.router.RouterFragmentPath
-import com.yg.lib_core.bean.MainMenuBean
+import com.yg.lib_core.db.database.CommonDatabase
+import com.yg.lib_core.db.entity.MainMenuBean
 import com.yg.lib_core.http.ApiRetrofit
 import com.yg.main.R
 import com.yg.main.mvp.contract.MainContract
@@ -26,8 +27,12 @@ import com.yg.newsproject.baselibs.config.UserManager
 import com.yg.newsproject.baselibs.constant.Constant
 import com.yg.newsproject.baselibs.ext.ss
 import com.yg.newsproject.baselibs.utils.GlideUtil
+import com.yg.newsproject.baselibs.utils.NetWorkUtil
 import com.yg.newsproject.baselibs.utils.SettingUtil
 import com.yg.newsproject.baselibs.utils.ToastUtils
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.item_tab.view.*
 
@@ -41,7 +46,7 @@ class MainFragment : BaseMvpFragment<MainContract.View, MainContract.Presenter>(
     MainContract.View {
     private var nameList = ArrayList<String>()
     private var fragments = ArrayList<Fragment>()
-    private val menuList = ArrayList<MainMenuBean>()
+    private val menuList = mutableListOf<MainMenuBean>()
     private val SDK_PERMISSION_REQUEST = 127
     private lateinit var mOption: LocationClientOption
     private lateinit var client: LocationClient
@@ -53,29 +58,68 @@ class MainFragment : BaseMvpFragment<MainContract.View, MainContract.Presenter>(
     override fun attachLayoutRes(): Int = R.layout.fragment_main
     override fun lazyLoad() {
 //        mPresenter?.findMainMenu()
-        ApiRetrofit.service.findMainMenu(Constant.DEVICE_TYPE).ss(onSuccess = {
-            if (it?.data != null && it.data.size > 0) {
-                menuList.clear()
-                menuList.addAll(it.data)
-                for (i in it.data.indices) {
-                    val bean = it.data[i]
-                    nameList.add(bean.name)
-                    fragments.add(
-                        ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
-                            .navigation() as Fragment
-                    )
+        if (NetWorkUtil.isConnected()) {
+            ApiRetrofit.service.findMainMenu(Constant.DEVICE_TYPE).ss(onSuccess = {
+                if (it?.data != null && it.data.size > 0) {
+                    menuList.clear()
+                    menuList.addAll(it.data)
+                    for (i in it.data.indices) {
+                        val bean = it.data[i]
+                        nameList.add(bean.name.toString())
+                        fragments.add(
+                            ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
+                                .navigation() as Fragment
+                        )
+                    }
                 }
-            }
-            viewPager.adapter?.notifyDataSetChanged()
-            viewPager.offscreenPageLimit = menuList.size
-            for (i in fragments.indices){
-                val bean = it.data[i]
-                val tab: TabLayout.Tab? = tabLayout.getTabAt(i)
-                tab?.customView = getTabView(i,bean)
-            }
-        }, onError = {
+                viewPager.adapter?.notifyDataSetChanged()
+                viewPager.offscreenPageLimit = menuList.size
+                for (i in fragments.indices) {
+                    val bean = it.data[i]
+                    val tab: TabLayout.Tab? = tabLayout.getTabAt(i)
+                    tab?.customView = getTabView(i, bean)
+                }
+                Observable.just(menuList).flatMap {
+                    val dao = CommonDatabase.getInstance(requireContext()).mainMenuDao()
+                    dao.insertMainMenuList(it)
+                    return@flatMap Observable.just(1)
+                }.subscribeOn(Schedulers.io())
+                    .subscribe({
 
-        })
+                    }, {
+                        it.printStackTrace()
+                    })
+            }, onError = {
+
+            })
+        } else {
+            Observable.just(menuList).flatMap{
+                val list = CommonDatabase.getInstance(requireContext()).mainMenuDao().getMainMenuList()
+                it.clear()
+                it.addAll(list)
+                return@flatMap Observable.just(it)
+            }
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    for (i in it.indices) {
+                        val bean = it[i]
+                        nameList.add(bean.name.toString())
+                        fragments.add(
+                            ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
+                                .navigation() as Fragment
+                        )
+                    }
+                    viewPager.adapter?.notifyDataSetChanged()
+                    viewPager.offscreenPageLimit = it.size
+                    for (i in fragments.indices) {
+                        val bean = it[i]
+                        val tab: TabLayout.Tab? = tabLayout.getTabAt(i)
+                        tab?.customView = getTabView(i, bean)
+                    }
+                }, {})
+
+        }
     }
 
     override fun initView(view: View) {
@@ -97,9 +141,15 @@ class MainFragment : BaseMvpFragment<MainContract.View, MainContract.Presenter>(
                 val textView = tab?.customView?.findViewById<TextView>(R.id.tab_text)
                 val imgView = tab?.customView?.findViewById<ImageView>(R.id.tab_image)
                 if (textView != null)
-                textView?.setTextColor(SettingUtil.getColor())
+                    textView?.setTextColor(SettingUtil.getColor())
                 if (imgView != null)
-                context?.let { GlideUtil.loadImage(it,imgView!!,getThemeImage(tab?.position))}
+                    context?.let {
+                        GlideUtil.loadImage(
+                            it,
+                            imgView!!,
+                            getThemeImage(tab?.position)
+                        )
+                    }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -107,9 +157,15 @@ class MainFragment : BaseMvpFragment<MainContract.View, MainContract.Presenter>(
                 val textView = tab?.customView?.findViewById<TextView>(R.id.tab_text)
                 val imgView = tab?.customView?.findViewById<ImageView>(R.id.tab_image)
                 if (textView != null)
-                textView?.setTextColor(context!!.resources.getColor(R.color.text_grey))
+                    textView?.setTextColor(context!!.resources.getColor(R.color.text_grey))
                 if (imgView != null)
-                context?.let { GlideUtil.loadImage(it,imgView!!,menuList[tab?.position!!].imgUrl) }
+                    context?.let {
+                        GlideUtil.loadImage(
+                            it,
+                            imgView!!,
+                            menuList[tab?.position!!].imgUrl!!
+                        )
+                    }
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -119,36 +175,36 @@ class MainFragment : BaseMvpFragment<MainContract.View, MainContract.Presenter>(
         })
     }
 
-    private fun getTabView(position: Int,bean: MainMenuBean): View? {
+    private fun getTabView(position: Int, bean: MainMenuBean): View? {
         layoutInflater.inflate(R.layout.item_tab, tabLayout, false).apply {
             // View设置属性，注意上面引用的包（import属于你们自己的包路径）
             this.tab_text.text = bean.name
-            if (position == 0){
+            if (position == 0) {
                 this.tab_text.setTextColor(SettingUtil.getColor())
-                GlideUtil.loadImage(context,this.tab_image,bean.imgUrl)
-                if (!bean.subjects.isNullOrEmpty() && bean.subjects.size > 0){
-                    GlideUtil.loadImage(context,this.tab_image,getThemeImage(position))
+                GlideUtil.loadImage(context, this.tab_image, bean.imgUrl!!)
+                if (!bean.subjects.isNullOrEmpty() && bean.subjects!!.size > 0) {
+                    GlideUtil.loadImage(context, this.tab_image, getThemeImage(position))
                 } else {
-                    GlideUtil.loadImage(context,this.tab_image,bean.imgUrl)
+                    GlideUtil.loadImage(context, this.tab_image, bean.imgUrl!!)
                 }
             } else {
-                GlideUtil.loadImage(context,this.tab_image,bean.imgUrl)
+                GlideUtil.loadImage(context, this.tab_image, bean.imgUrl!!)
             }
             return this
         }
     }
 
-    private fun getThemeImage(position: Int): String{
+    private fun getThemeImage(position: Int): String {
         val bean = menuList[position]
-        val name = when (SettingUtil.getColorType()){
+        val name = when (SettingUtil.getColorType()) {
             0 -> "朝霞映日"
             1 -> "流光溢彩"
             2 -> "紫气东来"
             else -> "蓝色的梦"
         }
-        for (data in bean.subjects){
-            if (data.name == name){
-                return data.subjectImgUrl
+        for (data in bean.subjects!!) {
+            if (data.name == name) {
+                return data.subjectImgUrl!!
             }
         }
         return ""

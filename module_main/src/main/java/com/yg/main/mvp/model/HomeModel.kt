@@ -2,7 +2,7 @@ package com.yg.main.mvp.model
 
 import com.yg.newsproject.baselibs.mvp.BaseModel
 import com.yg.lib_core.bean.HttpResult
-import com.yg.lib_core.bean.MainMenuBean
+import com.yg.lib_core.db.entity.MainMenuBean
 import com.yg.lib_core.http.ApiRetrofit
 import com.yg.main.mvp.contract.HomeContract
 import com.yg.newsproject.baselibs.constant.Constant

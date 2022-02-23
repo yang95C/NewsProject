@@ -4,7 +4,7 @@ import com.yg.newsproject.baselibs.mvp.IModel
 import com.yg.newsproject.baselibs.mvp.IPresenter
 import com.yg.newsproject.baselibs.mvp.IView
 import com.yg.lib_core.bean.HttpResult
-import com.yg.lib_core.bean.MainMenuBean
+import com.yg.lib_core.db.entity.MainMenuBean
 import io.reactivex.rxjava3.core.Observable
 
 /**

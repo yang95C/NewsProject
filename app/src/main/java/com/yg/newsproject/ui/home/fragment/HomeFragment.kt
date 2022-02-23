@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.yg.lib_core.bean.MainMenuBean
+import com.yg.lib_core.db.entity.MainMenuBean
 import com.yg.newsproject.R
 import com.yg.newsproject.baselibs.base.BaseMvpFragment
 import com.yg.main.mvp.contract.HomeContract
