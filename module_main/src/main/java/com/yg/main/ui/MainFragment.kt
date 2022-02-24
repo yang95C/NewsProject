@@ -79,47 +79,46 @@ class MainFragment : BaseMvpFragment<MainContract.View, MainContract.Presenter>(
                     val tab: TabLayout.Tab? = tabLayout.getTabAt(i)
                     tab?.customView = getTabView(i, bean)
                 }
-                Observable.just(menuList).flatMap {
+                Thread(Runnable {
                     val dao = CommonDatabase.getInstance(requireContext()).mainMenuDao()
-                    dao.insertMainMenuList(it)
-                    return@flatMap Observable.just(1)
-                }.subscribeOn(Schedulers.io())
-                    .subscribe({
-
-                    }, {
-                        it.printStackTrace()
-                    })
+                    dao.insertMainMenuList(menuList)
+                }).start()
             }, onError = {
-
+                getDbMainMenu()
             })
         } else {
-            Observable.just(menuList).flatMap{
-                val list = CommonDatabase.getInstance(requireContext()).mainMenuDao().getMainMenuList()
-                it.clear()
-                it.addAll(list)
-                return@flatMap Observable.just(it)
-            }
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    for (i in it.indices) {
-                        val bean = it[i]
-                        nameList.add(bean.name.toString())
-                        fragments.add(
-                            ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
-                                .navigation() as Fragment
-                        )
-                    }
-                    viewPager.adapter?.notifyDataSetChanged()
-                    viewPager.offscreenPageLimit = it.size
-                    for (i in fragments.indices) {
-                        val bean = it[i]
-                        val tab: TabLayout.Tab? = tabLayout.getTabAt(i)
-                        tab?.customView = getTabView(i, bean)
-                    }
-                }, {})
-
+            getDbMainMenu()
         }
+    }
+
+    private fun getDbMainMenu(){
+        Observable.just(menuList).flatMap{
+            val list = CommonDatabase.getInstance(requireContext()).mainMenuDao().getMainMenuList()
+            it.clear()
+            it.addAll(list)
+            return@flatMap Observable.just(it)
+        }
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                for (i in it.indices) {
+                    val bean = it[i]
+                    nameList.add(bean.name.toString())
+                    fragments.add(
+                        ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
+                            .navigation() as Fragment
+                    )
+                }
+                viewPager.adapter?.notifyDataSetChanged()
+                viewPager.offscreenPageLimit = it.size
+                for (i in fragments.indices) {
+                    val bean = it[i]
+                    val tab: TabLayout.Tab? = tabLayout.getTabAt(i)
+                    tab?.customView = getTabView(i, bean)
+                }
+            }, {
+                it.printStackTrace()
+            })
     }
 
     override fun initView(view: View) {
