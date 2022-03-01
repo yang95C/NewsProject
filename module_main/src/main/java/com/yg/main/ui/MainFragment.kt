@@ -66,10 +66,17 @@ class MainFragment : BaseMvpFragment<MainContract.View, MainContract.Presenter>(
                     for (i in it.data.indices) {
                         val bean = it.data[i]
                         nameList.add(bean.name.toString())
-                        fragments.add(
-                            ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
-                                .navigation() as Fragment
-                        )
+                        if (i != it.data.size - 1){
+                            fragments.add(
+                                ARouter.getInstance().build(RouterFragmentPath.Home.PAGER_HOME).withString("type",bean.type.toString())
+                                    .navigation() as Fragment
+                            )
+                        } else {
+                            fragments.add(
+                                ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
+                                    .navigation() as Fragment
+                            )
+                        }
                     }
                 }
                 viewPager.adapter?.notifyDataSetChanged()
@@ -79,10 +86,11 @@ class MainFragment : BaseMvpFragment<MainContract.View, MainContract.Presenter>(
                     val tab: TabLayout.Tab? = tabLayout.getTabAt(i)
                     tab?.customView = getTabView(i, bean)
                 }
-                Thread(Runnable {
+                Thread {
                     val dao = CommonDatabase.getInstance(requireContext()).mainMenuDao()
+                    dao.deleteAll()
                     dao.insertMainMenuList(menuList)
-                }).start()
+                }.start()
             }, onError = {
                 getDbMainMenu()
             })
@@ -104,10 +112,17 @@ class MainFragment : BaseMvpFragment<MainContract.View, MainContract.Presenter>(
                 for (i in it.indices) {
                     val bean = it[i]
                     nameList.add(bean.name.toString())
-                    fragments.add(
-                        ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
-                            .navigation() as Fragment
-                    )
+                    if (i == 0){
+                        fragments.add(
+                            ARouter.getInstance().build(RouterFragmentPath.Home.PAGER_HOME)
+                                .navigation() as Fragment
+                        )
+                    } else {
+                        fragments.add(
+                            ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
+                                .navigation() as Fragment
+                        )
+                    }
                 }
                 viewPager.adapter?.notifyDataSetChanged()
                 viewPager.offscreenPageLimit = it.size

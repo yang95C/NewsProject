@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.SPUtils
 class UserManager private constructor(){
     //用户基本信息
     private val USER_NICKNAME = "nickname"
+    private val USER_ID = "userid"
     private val USER_TOKEN = "usertoken"
     private val USER_HEAD = "userhead"
     private val USER_MOBILE = "usermobile"
@@ -49,6 +50,14 @@ class UserManager private constructor(){
 
     fun setUserToken(token: String){
         spUtil!!.put(USER_TOKEN,if (TextUtils.isEmpty(token)) "" else token)
+    }
+
+    fun getUserId():String{
+        return spUtil!!.getString(USER_ID,"")
+    }
+
+    fun setUserId(id: String){
+        spUtil!!.put(USER_ID,if (TextUtils.isEmpty(id)) "" else id)
     }
 
     fun getUserHead():String{

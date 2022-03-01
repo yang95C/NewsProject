@@ -1,6 +1,7 @@
 package com.yg.lib_core.http
 
 import com.yg.lib_core.bean.*
+import com.yg.lib_core.db.entity.ColumnBean
 import com.yg.lib_core.db.entity.MainMenuBean
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.MultipartBody
@@ -110,4 +111,10 @@ interface ApiInterface {
      */
     @GET("/a/columnType/findNewAllList")
     fun findMainMenu(@Query("deviceType") deviceType:String): Observable<HttpResult<MutableList<MainMenuBean>>>
+
+    /**
+     * 获取栏目集合
+     */
+    @GET("/a/Comuln/sortListByUser")
+    fun findColumnList(@Query("deviceType") deviceType:String,@Query("type") type:String,@Query("userId") userId:String): Observable<HttpResult<MutableList<ColumnBean>>>
 }

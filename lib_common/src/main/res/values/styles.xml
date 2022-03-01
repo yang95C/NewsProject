@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TabLayoutBigTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">@dimen/sp16</item>
+    </style>
+    <style name="TabLayoutSmallTextAppearance" parent="TabLayoutBigTextAppearance">
+        <item name="android:textSize">@dimen/sp14</item>
+    </style>
+</resources>

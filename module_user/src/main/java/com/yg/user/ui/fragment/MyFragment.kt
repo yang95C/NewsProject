@@ -32,21 +32,19 @@ class MyFragment : BaseMvpFragment<MyContract.View,MyContract.Presenter>(),MyCon
     }
 
     override fun lazyLoad() {
-        tv_set.setOnClickListener {
+//        tv_set.setOnClickListener {
 //            val intent = Intent(context,SettingActivity().javaClass)
 //            startActivity(intent)
-        }
-        ll_diary.setOnClickListener(object :View.OnClickListener{
-            override fun onClick(v: View?) {
-//               val loginDialog = LoginDialog().newInstance()
-//                loginDialog?.show(childFragmentManager,"login")
-//                loginDialog?.setLoginListener(object :LoginDialog.OnLoginSuccessListener{
-//                    override fun OnLoginSuccess(bean: UserInfoBean) {
-//
-//                    }
-//                })
-            }
-        })
+//        }
+//        ll_diary.setOnClickListener {
+            //               val loginDialog = LoginDialog().newInstance()
+            //                loginDialog?.show(childFragmentManager,"login")
+            //                loginDialog?.setLoginListener(object :LoginDialog.OnLoginSuccessListener{
+            //                    override fun OnLoginSuccess(bean: UserInfoBean) {
+            //
+            //                    }
+            //                })
+//        }
     }
 
     override fun getRecordsSuccess(any: Any) {

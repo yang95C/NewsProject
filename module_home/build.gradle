@@ -16,12 +16,12 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
         if (isBuildModule.toBoolean()) {
-            applicationId "com.yg.user"
+            applicationId "com.yg.home"
         }
-
     }
 
     buildTypes {
@@ -39,7 +39,7 @@ android {
     }
 
     //统一资源前缀，规范资源引用
-    resourcePrefix "user_"
+    resourcePrefix "home_"
 }
 
 dependencies {

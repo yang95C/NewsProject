@@ -1,10 +1,10 @@
-package com.yg.main.mvp.contract
+package com.yg.home.mvp.contract
 
 import com.yg.newsproject.baselibs.mvp.IModel
 import com.yg.newsproject.baselibs.mvp.IPresenter
 import com.yg.newsproject.baselibs.mvp.IView
 import com.yg.lib_core.bean.HttpResult
-import com.yg.lib_core.db.entity.MainMenuBean
+import com.yg.lib_core.db.entity.ColumnBean
 import io.reactivex.rxjava3.core.Observable
 
 /**
@@ -15,15 +15,16 @@ import io.reactivex.rxjava3.core.Observable
 interface HomeContract {
 
     interface View : IView {
-        fun getMainMenuSuccess(data: MutableList<MainMenuBean>?)
+        fun getColumnListSuccess(data: MutableList<ColumnBean>?)
+        fun getColumnListError()
     }
 
     interface Presenter : IPresenter<View> {
-        fun findMainMenu()
+        fun findColumnList(mainId:String)
     }
 
     interface Model : IModel {
-        fun findMainMenu(): Observable<HttpResult<MutableList<MainMenuBean>>>
+        fun findColumnList(mainId:String): Observable<HttpResult<MutableList<ColumnBean>>>
     }
 
 }
