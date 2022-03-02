@@ -3,6 +3,7 @@ package com.yg.home.fragment
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -121,6 +122,9 @@ class HomeFragment : BaseMvpFragment<HomeContract.View, HomeContract.Presenter>(
                     .navigation() as Fragment
             )
         }
+        if (data.size <= 1){
+            homeTabLayout.visibility = View.GONE
+        }
         viewPager.adapter?.notifyDataSetChanged()
         Thread {
             val dao = CommonDatabase.getInstance(requireContext()).columnDao()
@@ -153,6 +157,9 @@ class HomeFragment : BaseMvpFragment<HomeContract.View, HomeContract.Presenter>(
                     )
                 }
                 viewPager.adapter?.notifyDataSetChanged()
+                if (it.size <= 1){
+                    homeTabLayout.visibility = View.GONE
+                }
             }, {
                 it.printStackTrace()
             })
