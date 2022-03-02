@@ -1,12 +1,11 @@
 package com.yg.user.ui.fragment
 
-import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yg.common.router.RouterFragmentPath
 import com.yg.newsproject.baselibs.base.BaseMvpFragment
 import com.yg.user.R
-import com.yg.user.ui.mvp.contract.MyContract
-import com.yg.user.ui.mvp.presenter.MyPresenter
+import com.yg.user.mvp.contract.MyContract
+import com.yg.user.mvp.presenter.MyPresenter
 import kotlinx.android.synthetic.main.fragment_my.*
 
 

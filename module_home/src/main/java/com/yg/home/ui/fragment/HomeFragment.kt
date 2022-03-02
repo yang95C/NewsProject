@@ -1,4 +1,4 @@
-package com.yg.home.fragment
+package com.yg.home.ui.fragment
 
 import android.graphics.Typeface
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.yg.user.ui.mvp.contract
+package com.yg.user.mvp.contract
 
 import com.yg.newsproject.baselibs.mvp.IModel
 import com.yg.newsproject.baselibs.mvp.IPresenter
