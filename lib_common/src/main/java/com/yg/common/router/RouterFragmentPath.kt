@@ -8,6 +8,7 @@ class RouterFragmentPath {
     object Home {
         private const val HOME = "/home"
         const val PAGER_HOME = "$HOME/Home"
+        const val PAGER_HOME_NEWS_LIST = "$HOME/NewsList"
     }
 
     /**

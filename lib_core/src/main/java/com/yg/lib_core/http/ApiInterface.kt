@@ -117,4 +117,10 @@ interface ApiInterface {
      */
     @GET("/a/Comuln/sortListByUser")
     fun findColumnList(@Query("deviceType") deviceType:String,@Query("type") type:String,@Query("userId") userId:String): Observable<HttpResult<MutableList<ColumnBean>>>
+
+    /**
+     * 获取栏目新闻列表
+     */
+    @GET("/a/contentApi/contents")
+    fun findNewsList(@Query("columnId") columnId:String,@Query("tagId") tagId:String, @Query("page") page: Int, @Query("userId") userId:String,@Query("deviceType") deviceType:String): Observable<HttpResult<NewsListPageBean>>
 }

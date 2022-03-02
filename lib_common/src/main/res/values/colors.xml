@@ -48,6 +48,7 @@
     <color name="viewLineColor">#F0F0F0</color>
     <color name="transparent_75">#ba000000</color>
     <color name="transparent">#00000000</color>
+    <color name="img_transparent">#8d222222</color>
 
     <color name="divider">@color/Grey700</color>
 

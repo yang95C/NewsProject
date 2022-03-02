@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="ResourceName">
+
+    <ImageView
+        android:id="@+id/img_cover"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp70"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp16"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="3:2"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:id="@+id/ll_img_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/img_cover"
+        app:layout_constraintEnd_toEndOf="@id/img_cover"
+        android:layout_marginBottom="@dimen/dp2"
+        android:layout_marginEnd="@dimen/dp2"
+        android:background="@drawable/image_number_bg"
+        android:paddingLeft="@dimen/dp_4"
+        android:paddingRight="@dimen/dp_4"
+        android:paddingTop="@dimen/dp2"
+        android:paddingBottom="@dimen/dp2"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="@dimen/dp18"
+            android:layout_height="@dimen/dp14"
+            android:src="@mipmap/icon_list_image" />
+        <TextView
+            android:id="@+id/tv_img_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_white"
+            android:layout_marginStart="@dimen/dp2"
+            android:textSize="@dimen/sp8"
+            tools:text="0图"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/img_cover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/img_cover"
+        android:layout_marginStart="@dimen/dp16"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:textSize="@dimen/sp18"
+        android:textColor="@color/text_black"
+        android:maxLines="3"
+        android:ellipsize="end"
+        tools:text="@string/appbar_scrolling_view_behavior" />
+
+    <ImageView
+        android:id="@+id/image_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/img_cover"
+        app:layout_constraintTop_toTopOf="@id/ll_bottom"
+        app:layout_constraintBottom_toBottomOf="@id/ll_bottom"
+        android:src="@mipmap/ic_delete_in_circle_gray"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/img_cover"
+        android:layout_marginTop="@dimen/dp10"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/dp16"
+        app:layout_constraintEnd_toStartOf="@id/image_delete"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp12"
+            android:textColor="@color/text_grey"
+            tools:text="@string/app_name"/>
+        <TextView
+            android:id="@+id/text_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp5"
+            android:textColor="@color/Red"
+            android:textSize="@dimen/sp12"
+            android:visibility="gone"
+            android:text="置顶" />
+        <TextView
+            android:id="@+id/text_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp5"
+            android:layout_toRightOf="@id/text_tag"
+            android:background="@drawable/hot_bg"
+            android:paddingLeft="@dimen/dp2"
+            android:paddingRight="@dimen/dp2"
+            android:textColor="@color/Red"
+            android:textSize="@dimen/sp10"
+            android:visibility="gone"
+            android:text="热" />
+    </LinearLayout>
+    <View
+        android:id="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        app:layout_constraintTop_toBottomOf="@id/ll_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp5"
+        android:layout_marginRight="@dimen/dp16"
+        android:background="@color/Grey200" />
+</androidx.constraintlayout.widget.ConstraintLayout>

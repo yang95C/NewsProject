@@ -31,7 +31,8 @@ ext {
             "banner"          : "io.github.youth5201314:banner:2.2.2",
             "refresh-layout"  : "com.scwang.smart:refresh-layout-kernel:2.0.1",
             "refresh-header"  : "com.scwang.smart:refresh-header-classics:2.0.1",
-            "refresh-footer"  : "com.scwang.smart:refresh-footer-classics:2.0.1"
+            "refresh-footer"  : "com.scwang.smart:refresh-footer-classics:2.0.1",
+            "multistateview"  : "com.github.Kennyc1012:MultiStateView:2.2.0"
     ]
 
     retrofit = [

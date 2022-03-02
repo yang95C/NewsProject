@@ -118,7 +118,7 @@ class HomeFragment : BaseMvpFragment<HomeContract.View, HomeContract.Presenter>(
             val bean = data[i]
             nameList.add(bean.name)
             fragments.add(
-                ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
+                ARouter.getInstance().build(RouterFragmentPath.Home.PAGER_HOME_NEWS_LIST).withSerializable("param",bean)
                     .navigation() as Fragment
             )
         }
@@ -126,6 +126,7 @@ class HomeFragment : BaseMvpFragment<HomeContract.View, HomeContract.Presenter>(
             homeTabLayout.visibility = View.GONE
         }
         viewPager.adapter?.notifyDataSetChanged()
+        viewPager.offscreenPageLimit = data.size
         Thread {
             val dao = CommonDatabase.getInstance(requireContext()).columnDao()
             type?.let { dao.deleteAll(it) }
@@ -152,11 +153,11 @@ class HomeFragment : BaseMvpFragment<HomeContract.View, HomeContract.Presenter>(
                     val bean = it[i]
                     nameList.add(bean.name)
                     fragments.add(
-                        ARouter.getInstance().build(RouterFragmentPath.User.PAGER_USER)
-                            .navigation() as Fragment
+                        NewsListFragment.newInstance(bean)
                     )
                 }
                 viewPager.adapter?.notifyDataSetChanged()
+                viewPager.offscreenPageLimit = it.size
                 if (it.size <= 1){
                     homeTabLayout.visibility = View.GONE
                 }
