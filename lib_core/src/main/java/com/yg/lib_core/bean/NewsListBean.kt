@@ -40,7 +40,7 @@ data class NewsListBean(
     val contentBehavior: ContentBehaviorBean
 ):Serializable, MultiItemEntity {
     override val itemType: Int
-        get() = 1
+        get() = if (fileType > 2) 2 else fileType
 }
 
 data class ContentBehaviorBean(

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="ResourceName">
+    <TextView
+        android:id="@+id/text_title"
+        android:textSize="@dimen/sp16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp16"
+        android:layout_marginStart="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp10"
+        android:maxLines="3"
+        android:textColor="@color/text_black"
+        tools:text="习近平主席今年首次出访，这个理念值得重温这个理念值得重温"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_view1"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp10"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/pic_empty"
+        app:layout_constraintDimensionRatio="3:2"
+        app:layout_constraintEnd_toStartOf="@id/image_view2"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@id/text_title"
+        app:layout_constraintTop_toBottomOf="@id/text_title"
+        />
+
+    <ImageView
+        android:id="@+id/image_view2"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/pic_empty"
+        app:layout_constraintBottom_toBottomOf="@id/image_view1"
+        app:layout_constraintDimensionRatio="3:2"
+        app:layout_constraintEnd_toStartOf="@id/l_img3"
+        app:layout_constraintStart_toEndOf="@id/image_view1"
+        app:layout_constraintTop_toTopOf="@id/image_view1"
+        />
+
+    <RelativeLayout
+        android:id="@+id/l_img3"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_view1"
+        app:layout_constraintDimensionRatio="3:2"
+        app:layout_constraintEnd_toEndOf="@id/text_title"
+        app:layout_constraintStart_toEndOf="@id/image_view2"
+        app:layout_constraintTop_toTopOf="@id/image_view1">
+        <ImageView
+            android:id="@+id/image_view3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/pic_empty" />
+        <TextView
+            android:id="@+id/txt_imgmore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="@dimen/sp20"
+            android:textColor="@color/text_white"
+            android:background="#50000000"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+    </RelativeLayout>
+    <com.yg.newsproject.baselibs.widget.CircleImageView
+        android:id="@+id/image_source"
+        android:layout_width="@dimen/dp30"
+        android:layout_height="@dimen/dp30"
+        android:layout_marginBottom="@dimen/dp10"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/text_title"
+        app:layout_constraintTop_toTopOf="@id/text_source" />
+
+    <TextView
+        android:id="@+id/text_source"
+        android:textSize="@dimen/sp12"
+        android:textColor="@color/text_grey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/image_view1"
+        app:layout_constraintStart_toEndOf="@id/image_source"
+        android:layout_marginTop="@dimen/dp10"
+        app:layout_goneMarginStart="0dp"
+        tools:text="央视新闻移动网" />
+
+    <TextView
+        android:id="@+id/text_comment_volume"
+        android:textSize="@dimen/sp12"
+        android:textColor="@color/text_grey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp8"
+        android:visibility="gone"
+        tools:text="9条评论"
+        tools:visibility="visible"
+        app:layout_constraintTop_toTopOf="@id/text_source"
+        app:layout_constraintBottom_toBottomOf="@id/text_source"
+        app:layout_constraintStart_toEndOf="@id/text_source"/>
+
+    <TextView
+        android:id="@+id/text_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp8"
+        tools:text="置顶"
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:textColor="@color/Red"
+        android:textSize="@dimen/sp12"
+        app:layout_constraintTop_toTopOf="@id/text_source"
+        app:layout_constraintBottom_toBottomOf="@id/text_source"
+        app:layout_constraintLeft_toRightOf="@id/text_comment_volume" />
+
+    <ImageView
+        android:id="@+id/image_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_delete_in_circle_gray"
+        android:layout_marginEnd="@dimen/dp16"
+        app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="@id/text_source"
+        app:layout_constraintBottom_toBottomOf="@id/text_source"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_marginRight="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@color/view_grey"
+        app:layout_constraintTop_toBottomOf="@+id/image_delete"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
