@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/net_error_icon"
+        android:layout_width="@dimen/dp150"
+        android:layout_height="@dimen/dp150"
+        android:src="@mipmap/column_data_load_failed"
+        app:layout_constraintBottom_toTopOf="@+id/net_error_tips"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/net_error_tips"
+        android:textSize="@dimen/sp16"
+        android:textColor="@color/text_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp30"
+        android:text="此栏目没有数据，换一个吧~"
+        app:layout_constraintBottom_toTopOf="@+id/start_load"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/net_error_icon" />
+
+    <TextView
+        android:id="@+id/start_load"
+        android:textSize="@dimen/sp16"
+        android:textColor="@color/color_F16D58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp30"
+        android:background="@drawable/new_status_btn_selector"
+        android:paddingStart="@dimen/dp30"
+        android:paddingTop="@dimen/dp10"
+        android:paddingEnd="@dimen/dp30"
+        android:paddingBottom="@dimen/dp10"
+        android:text="重试"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/net_error_tips" />
+</androidx.constraintlayout.widget.ConstraintLayout>

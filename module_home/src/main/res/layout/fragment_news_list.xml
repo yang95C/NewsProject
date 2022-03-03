@@ -3,13 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.NewsListFragment"
     tools:ignore="ResourceName"
     android:id="@+id/smartRefresh">
     <com.kennyc.view.MultiStateView
         android:id="@+id/multiStateView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:msv_loadingView="@layout/layout_loading_data_dialog"
+        app:msv_errorView="@layout/layout_error_data"
+        app:msv_emptyView="@layout/layout_empty_data"
+        app:msv_viewState="loading">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"

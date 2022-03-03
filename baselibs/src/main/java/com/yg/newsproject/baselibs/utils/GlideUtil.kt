@@ -134,6 +134,19 @@ class GlideUtil private constructor() {
                     .into(imageView)
             }
         }
-    }
 
+        fun loadGifImage(
+            context: Context,
+            imageView: ImageView,
+            url: Int
+        ){
+            Glide.with(context)
+                .asGif()
+                .load(url)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE) //缓存转换后的资源
+                .placeholder(R.drawable.shape_pic_load_bg)
+                .error(R.drawable.shape_pic_load_bg)
+                .into(imageView)
+        }
+    }
 }

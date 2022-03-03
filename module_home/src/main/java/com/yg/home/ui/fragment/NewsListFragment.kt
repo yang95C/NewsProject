@@ -1,9 +1,11 @@
 package com.yg.home.ui.fragment
 
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.kennyc.view.MultiStateView
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.yg.common.router.RouterFragmentPath
@@ -16,6 +18,7 @@ import com.yg.lib_core.bean.NewsListPageBean
 import com.yg.lib_core.db.entity.ColumnBean
 import com.yg.newsproject.baselibs.base.BaseMvpFragment
 import com.yg.newsproject.baselibs.utils.AdapterRefreshUtils
+import com.yg.newsproject.baselibs.utils.GlideUtil
 import kotlinx.android.synthetic.main.fragment_news_list.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -82,6 +85,9 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View,NewsListContract.
         smartRefresh.setOnLoadMoreListener {
             onRefresh()
         }
+
+        val imgLoading = multiStateView.getView(MultiStateView.ViewState.LOADING)?.findViewById<ImageView>(R.id.img_loading)!!
+        GlideUtil.loadGifImage(requireContext(),imgLoading,R.mipmap.icon_loading_data)
         onRefresh()
     }
 
@@ -91,10 +97,16 @@ class NewsListFragment : BaseMvpFragment<NewsListContract.View,NewsListContract.
 
     override fun findNewsListSuccess(data: NewsListPageBean?) {
         pageIndex = AdapterRefreshUtils<NewsListBean>().adapterRefresh(adapter,smartRefresh,data!!.records,pageIndex,data.rows)
+        if (adapter.itemCount > 0){
+            multiStateView.viewState = MultiStateView.ViewState.CONTENT
+        } else {
+            multiStateView.viewState = MultiStateView.ViewState.EMPTY
+        }
+
     }
 
     override fun findNewsListError() {
-
+        multiStateView.viewState = MultiStateView.ViewState.ERROR
     }
 
 }

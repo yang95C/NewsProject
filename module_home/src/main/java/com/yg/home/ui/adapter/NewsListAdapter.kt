@@ -21,39 +21,46 @@ class NewsListAdapter(data: MutableList<NewsListBean>? = null): BaseMultiItemQui
         helper?: return
         item?:return
         when(helper.itemViewType){
+            0 -> {
+                itemData1(helper,item)
+            }
              1 -> {
-                val tvTitle = helper.getView<TextView>(R.id.tv_title)
-                val tvImgNum = helper.getView<TextView>(R.id.tv_img_num)
-                val textTag = helper.getView<TextView>(R.id.text_tag)
-                val textHot = helper.getView<TextView>(R.id.text_hot)
-                val tvUser = helper.getView<TextView>(R.id.tv_user)
-                val imgCover = helper.getView<ImageView>(R.id.img_cover)
-                 val llImgBg = helper.getView<LinearLayout>(R.id.ll_img_bg)
-                 tvTitle.text = item.title
-                 tvUser.text = item.dataSource
-                 if (TextUtils.isEmpty(item.titleFilePath)){
-                     imgCover.visibility = View.GONE
-                 } else {
-                     imgCover.visibility = View.VISIBLE
-                     GlideUtil.loadImage(context,imgCover,item.titleFilePath.toString())
-                 }
-                 if (item.isTop == 1){
-                     textTag.visibility = View.VISIBLE
-                 } else {
-                     textTag.visibility = View.GONE
-                 }
-                 if (item.isHot == 1){
-                     textHot.visibility = View.VISIBLE
-                 } else {
-                     textHot.visibility = View.GONE
-                 }
-                 if (item.imgNum != null && item.imgNum!! > 0){
-                     llImgBg.visibility = View.VISIBLE
-                     tvImgNum.text = "${item.imgNum}图"
-                 } else {
-                     llImgBg.visibility = View.GONE
-                 }
+                itemData1(helper,item)
              }
+        }
+    }
+
+    private fun itemData1(helper: BaseViewHolder, item: NewsListBean) {
+        val tvTitle = helper.getView<TextView>(R.id.tv_title)
+        val tvImgNum = helper.getView<TextView>(R.id.tv_img_num)
+        val textTag = helper.getView<TextView>(R.id.text_tag)
+        val textHot = helper.getView<TextView>(R.id.text_hot)
+        val tvUser = helper.getView<TextView>(R.id.tv_user)
+        val imgCover = helper.getView<ImageView>(R.id.img_cover)
+        val llImgBg = helper.getView<LinearLayout>(R.id.ll_img_bg)
+        tvTitle.text = item.title
+        tvUser.text = item.dataSource
+        if (TextUtils.isEmpty(item.titleFilePath)){
+            imgCover.visibility = View.GONE
+        } else {
+            imgCover.visibility = View.VISIBLE
+            GlideUtil.loadImage(context,imgCover,item.titleFilePath.toString())
+        }
+        if (item.isTop == 1){
+            textTag.visibility = View.VISIBLE
+        } else {
+            textTag.visibility = View.GONE
+        }
+        if (item.isHot == 1){
+            textHot.visibility = View.VISIBLE
+        } else {
+            textHot.visibility = View.GONE
+        }
+        if (item.imgNum != null && item.imgNum!! > 0){
+            llImgBg.visibility = View.VISIBLE
+            tvImgNum.text = "${item.imgNum}图"
+        } else {
+            llImgBg.visibility = View.GONE
         }
     }
 }
