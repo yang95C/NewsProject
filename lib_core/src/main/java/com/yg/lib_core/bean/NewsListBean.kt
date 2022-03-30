@@ -31,8 +31,10 @@ data class NewsListBean(
     val videoRadio: String?,
     val contentType: String?,
     val url: String?,
+    val identifyInfo: String?,
     val isTop: Int,
     val isHot: Int,
+    val isAgreeByMe: Int,
     val imgNum: Int?,
     val fileType: Int,
     val timeLen: Int,
@@ -40,7 +42,7 @@ data class NewsListBean(
     val contentBehavior: ContentBehaviorBean
 ):Serializable, MultiItemEntity {
     override val itemType: Int
-        get() = if (fileType > 2) 2 else fileType
+        get() = if (fileType > 3) 2 else fileType
 }
 
 data class ContentBehaviorBean(
@@ -50,5 +52,14 @@ data class ContentBehaviorBean(
     val shareCount: Int,
     val seeCount: Int,
     val commentCount: Int,
-    val browseCount: Int
-)
+    val browseCount: Int,
+    val isAddSee: Boolean = false
+) {
+    fun getPageViewCount():Int{
+        return if (isAddSee){
+            browseCount + seeCount
+        } else {
+            browseCount
+        }
+    }
+}
